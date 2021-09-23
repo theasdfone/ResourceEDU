@@ -2,6 +2,7 @@ import '../components/mainPage.css';
 import {
   Link,
 } from "react-router-dom";
+import video from "../resources/test.mp4"
 
 export default function MainPage() {
   return (
@@ -44,8 +45,11 @@ export default function MainPage() {
             <h5>A site for students to share and post resources</h5>
             <div class="fakeimg">Fake Image</div>
             <p>Some text..</p>
-            <p>Hey all, welcome to the resource drive. This is a WiP but more features and resources are on the way. 
+            <p>Hey all, welcome to the resource drive. This is a WiP but more features and resources are on the way.
               You will need to register an account to access/post resources to this site. In the meantime, enjoy the video down below ;)</p>
+            <video autoPlay loop muted>
+              <source src={video} />
+            </video>
           </div>
         </div>
       </div>
