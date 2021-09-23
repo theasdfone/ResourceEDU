@@ -1,0 +1,45 @@
+a:visited, a:link, a:active {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.images {
+  opacity: 0.5;
+  height: 300px;
+  width: 100%;
+}
+
+a:hover .images{
+  opacity: 1;
+  -webkit-box-shadow: 0px 0px 30px -10px;
+  -moz-box-shadow: 0px 0px 30px -10px;
+  box-shadow: 0px 0px 30px -10px black;
+  transition: all .2s ease-in-out;
+  transform: scale(1.1);
+  z-index: 9999;
+}
+
+.text {
+  position: relative;
+  left: 30%;
+  bottom: 50%;
+  width: 150px;
+  padding-left: 7.5px;
+  color: white;
+  background-color: orange;
+  z-index: 3;
+}
+
+.text:hover {
+  opacity: 1;
+}
+
+
+.title {
+  margin-top: 120px;
+  margin-bottom: 50px;
+  vertical-align: middle;
+  height: 20vh;
+  width: 40vw;
+  background-color: orange;
+}
