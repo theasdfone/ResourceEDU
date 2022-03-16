@@ -1,8 +1,6 @@
 import '../components/mainPage.css';
-import {
-  Link,
-} from "react-router-dom";
-import video from "../resources/test.mp4"
+import { Link } from "react-router-dom";
+import video from "../../static/test.mp4";
 
 export default function MainPage() {
   return (
@@ -13,7 +11,6 @@ export default function MainPage() {
           <ul class="navbar-nav flex-row ml-md-auto d-sm-none d-md-flex">
             <li class="nav-item">
               <Link class="nav-link" to='/login'>Login</Link>
-              {/* <a  href="/login">Login</a> */}
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/">About this project</a>
@@ -32,10 +29,10 @@ export default function MainPage() {
                 <a class="nav-link active" href="#">Github</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Textbooks</a>
+                <a class="nav-link" href="#">Documentation</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Grade Calculator</a>
+                <a class="nav-link" href="#">Design</a>
               </li>
             </ul>
             <hr class="d-sm-none"></hr>
@@ -54,7 +51,7 @@ export default function MainPage() {
         </div>
       </div>
 
-      <div class="fixed-bottom bg-dark text-light footer">
+      <div class="bg-dark text-light footer">
         <p>Built with Bootstrap 4.0</p>
       </div>
     </body>

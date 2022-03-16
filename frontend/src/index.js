@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import MainPage from './Pages/mainPage';
-import Login from './Pages/login';
+import './css/index.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "jquery/dist/jquery.min.js";
 import "bootstrap/dist/js/bootstrap.min.js";
-import LoginHome from './Pages/loginHome';
-import CreateUser from './Pages/createUser';
+
+import MainPage from './js/views/mainPage.jsx';
+import Login from './js/views/login.jsx';
+import LoginHome from './js/views/loginHome.jsx';
+import CreateUser from './js/views/createUser.jsx';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,7 +18,7 @@ ReactDOM.render(
         <Switch>
           <Route path="/" component={MainPage} exact />
           <Route path="/login" component={Login} />
-          <Route path="/test" component={LoginHome} />
+          <Route path="/loginHome" component={LoginHome} />
           <Route path="/createUser" component={CreateUser} />
         </Switch>
     </BrowserRouter>

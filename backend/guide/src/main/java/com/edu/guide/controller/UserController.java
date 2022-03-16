@@ -36,7 +36,6 @@ public class UserController {
     @RequestMapping("/loginCheck")
     @ResponseBody
     public ModelAndView loginForm(String username, String password) {
-        int count=0;
         User input = new User();
         input.setUsername(username);
         input.setPassword(password);

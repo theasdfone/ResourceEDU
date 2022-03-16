@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao{
 
         @Override
         public boolean loginUser(User user) {
-            String jpql = "from User where username=? and password=?";
+            String jpql = "from User where username=?0 and password=?1";
             Query query = em.createQuery(jpql);
             query.setParameter(0, user.getUsername());
             query.setParameter(1, user.getPassword());

@@ -1,8 +1,7 @@
 import '../components/loginHome.css';
-import learn from "../resources/learn.jpg"
-import coop from "../resources/coop.jpg"
-import lifestyle from "../resources/uwlife.jpg"
-import '../components/loginHome.css';
+import learn from "../../static/learn.jpg"
+import coop from "../../static/coop.jpg"
+import lifestyle from "../../static/uwlife.jpg"
 
 export default function LoginHome() {
     return (

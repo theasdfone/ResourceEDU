@@ -1,9 +1,9 @@
 import {
     Link
 } from "react-router-dom";
-import first from "../resources/first.jpg"
-import second from "../resources/second.jpg"
-import third from "../resources/third.jpg"
+import first from "../../static/first.jpg"
+import second from "../../static/second.jpg"
+import third from "../../static/third.jpg"
 
 export default function Login() {
     return (
@@ -14,7 +14,6 @@ export default function Login() {
                     <ul class="navbar-nav flex-row ml-md-auto d-sm-none d-md-flex">
                         <li class="nav-item">
                             <Link class="nav-link" to='/login'>Login</Link>
-                            {/* <a  href="/login">Login</a> */}
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/">About this project</a>
