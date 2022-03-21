@@ -1,4 +1,4 @@
-import '../components/loginHome.css';
+import '../../css/loginHome.css';
 import learn from "../../static/learn.jpg"
 import coop from "../../static/coop.jpg"
 import lifestyle from "../../static/uwlife.jpg"

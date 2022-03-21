@@ -1,4 +1,4 @@
-import '../components/mainPage.css';
+import '../../css/mainPage.css';
 import { Link } from "react-router-dom";
 import video from "../../static/test.mp4";
 
