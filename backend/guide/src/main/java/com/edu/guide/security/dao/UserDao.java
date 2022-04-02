@@ -1,11 +1,11 @@
-package com.edu.guide.dao;
+package com.edu.guide.security.dao;
 
 import com.edu.guide.model.User;
 
 public interface UserDao {
     public User createUser(User user);
 
-    public boolean loginUser(User user);
+    public User findUsername(String username);
 
     void delete(Long id);
 }

@@ -23,7 +23,7 @@ export default function CreateUser() {
                 <div class="row no-gutters">
                     <div class="jumbotron float-left" style={{ marginTop: "25vh", height: "45vh", width: "20vw", paddingTop: "4vh" }}>
                         <h2>Register</h2>
-                        <form action="/submitForm">
+                        <form action="/signup">
                             <label for="username"> New Username</label>
                             <input type="text" class="form-control" placeholder="New Username" name="username" />
                             <label for="password"> New Password</label>

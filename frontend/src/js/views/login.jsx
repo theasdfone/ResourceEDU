@@ -25,7 +25,7 @@ export default function Login() {
             <div class="container" style={{ marginLeft: "5vw" }}>
                 <div class="row">
                     <div class="jumbotron col-sm-5 pt-4 pb-3" style={{ height: "400px", width: "30vw", marginTop: "20vh", backgroundColor: "orange" }}>
-                        <form action="/loginCheck">
+                        <form action="/signin">
                             <div class="form-group">
                                 <h3>User Login</h3>
                                 <label for="username">Username</label>
