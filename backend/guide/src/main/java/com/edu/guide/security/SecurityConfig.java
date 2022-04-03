@@ -1,5 +1,6 @@
 package com.edu.guide.security;
 
+import com.edu.guide.security.jwt.AuthTokenFilter;
 import com.edu.guide.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    public AuthTokenFilter authenticationFilter() {
+        return new AuthTokenFilter();
     }
 
     @Bean
