@@ -7,10 +7,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "jquery/dist/jquery.min.js";
 import "bootstrap/dist/js/bootstrap.min.js";
 
-import MainPage from './js/views/mainPage.jsx';
+import MainPage from './js/views/mainpage.jsx';
 import Login from './js/views/login.jsx';
-import LoginHome from './js/views/loginHome.jsx';
-import CreateUser from './js/views/createUser.jsx';
+import Dashboard from './js/views/dashboard';
+import CreateUser from './js/views/createuser.jsx';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -18,8 +18,8 @@ ReactDOM.render(
         <Switch>
           <Route path="/" component={MainPage} exact />
           <Route path="/login" component={Login} />
-          <Route path="/loginHome" component={LoginHome} />
-          <Route path="/createUser" component={CreateUser} />
+          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/createuser" component={CreateUser} />
         </Switch>
     </BrowserRouter>
   </React.StrictMode>,
