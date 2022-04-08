@@ -10,11 +10,21 @@ const login = {
             fetch("/signin", requestBody)
             .then((res) => {
                 if(res.ok) resolve(res.json());
-                else reject(new Error("Incorrect Username or Password"));
-            }).catch(error => {
+            }).catch((error) => {
                 reject(error);
-            });
+            })
+        }).then((res) => {
+            localStorage.setItem("jwt", res.token);
+            window.location.replace("/dashboard");
         });
+    },
+    
+    logout() {
+        localStorage.removeItem("jwt");
+    },
+
+    getUser() {
+        return localStorage.getItem("jwt");
     }
 };
 

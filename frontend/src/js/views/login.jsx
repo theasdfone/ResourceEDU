@@ -6,6 +6,7 @@ import second from "../../static/second.jpg";
 import third from "../../static/third.jpg";
 
 import LoginStore from "../api/login";
+
 export default class Login extends React.Component {
     state = {
         username: "",
@@ -23,8 +24,13 @@ export default class Login extends React.Component {
 
     loginHandler = async () => {
         const { username, password } = this.state;
-        const user = await LoginStore.loginUser({username: username, password: password});
-        console.log(user);
+
+        let loginDetails = {
+            username: username,
+            password: password
+        }
+
+        await LoginStore.loginUser(loginDetails);
     }
 
     render() {
@@ -88,7 +94,7 @@ export default class Login extends React.Component {
                     </div>
                 </div>
     
-                <footer class="fixed-bottom bg-dark text-light">
+                <footer className="fixed-bottom bg-dark text-light">
                   <p style={{marginLeft:"20px"}}>Built with Bootstrap 4.0</p>
                 </footer>
             </div>
