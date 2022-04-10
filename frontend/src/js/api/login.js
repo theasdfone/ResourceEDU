@@ -14,18 +14,12 @@ const login = {
                 reject(error);
             })
         }).then((res) => {
-            localStorage.setItem("jwt", res.token);
-            window.location.replace("/dashboard");
+            if(res.token) {
+                localStorage.setItem("username", res.username);
+                window.location.replace("/dashboard");
+            }
         });
     },
-    
-    logout() {
-        localStorage.removeItem("jwt");
-    },
-
-    getUser() {
-        return localStorage.getItem("jwt");
-    }
 };
 
 export default login;
