@@ -20,11 +20,15 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    UserDetailsServiceImpl userDetailsService;
+
+    private final UserDetailsServiceImpl userDetailsService;
+    private final AuthenticationEntryPoint unauthorizedHandler;
 
     @Autowired
-    private AuthenticationEntryPoint unauthorizedHandler;
+    public SecurityConfig(UserDetailsServiceImpl userDetailsService, AuthenticationEntryPoint unauthorizedHandler) {
+        this.userDetailsService = userDetailsService;
+        this.unauthorizedHandler = unauthorizedHandler;
+    }
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
