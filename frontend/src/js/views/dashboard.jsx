@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 
 import Footer from "../components/footer.jsx"
 
+import LoginStore from "../api/login";
+
 import learn from "../../static/learn.jpg"
 import coop from "../../static/coop.jpg"
 import lifestyle from "../../static/uwlife.jpg"
@@ -12,19 +14,19 @@ import lifestyle from "../../static/uwlife.jpg"
 export default class LoginHome extends React.Component {
     renderNav() {
         return(
-        <nav className="fixed-top navbar navbar-expand bg-dark navbar-dark" style={{ height: "75px" }}>
-            <p className="navbar-brand" style={{ marginTop: "5px", marginLeft: "40px" }}>ResourceEdu</p>
-            <div className="collapse navbar-collapse" id="collapsibleNavbar">
-                <ul className="navbar-nav flex-row ml-md-auto d-sm-none d-md-flex">
-                    <li className="nav-item">
-                        <Link className="nav-link" to='/login'>Login</Link>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="/">About this project</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+            <nav className="fixed-top navbar navbar-expand bg-dark navbar-dark" style={{ height: "75px" }}>
+                <p className="navbar-brand" style={{ marginTop: "5px", marginLeft: "40px" }}>ResourceEdu</p>
+                <div className="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul className="navbar-nav flex-row ml-md-auto d-sm-none d-md-flex">
+                        <li className="nav-item">
+                            <Link className="nav-link" onClick={LoginStore.logout()} to='/'>Logout</Link>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/">About this project</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         )
     }
 

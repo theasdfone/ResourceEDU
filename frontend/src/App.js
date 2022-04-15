@@ -1,27 +1,33 @@
-// To be implemented with private routes [WiP]
+import { Route, Routes, Navigate } from 'react-router-dom';
 
-// import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import MainPage from './js/views/mainpage.jsx';
+import Login from './js/views/login.jsx';
+import Dashboard from './js/views/dashboard';
+import CreateUser from './js/views/createuser.jsx';
 
-// import './css/index.css';
+import LoginStore from "./js/api/login"
 
-// import MainPage from './js/views/mainpage.jsx';
-// import Login from './js/views/login.jsx';
-// import Dashboard from './js/views/dashboard';
-// import CreateUser from './js/views/createuser.jsx';
+export default function App() {
+    const AuthenticateUser = ({user, redirect = '/login', children}) => {
+        console.log(user);
+        if (!user) {
+          return <Navigate to={redirect} replace />;
+        }
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import "jquery/dist/jquery.min.js";
-// import "bootstrap/dist/js/bootstrap.min.js";
+        return children;
+    };
 
-// export default function App() {
-//     return (
-//         <BrowserRouter>
-//             <Routes>
-//               <Route path="/" element={<MainPage/>} exact />
-//               <Route path="/login" element={<Login/>} />
-//               <Route path="/dashboard" element={<Dashboard/>} />
-//               <Route path="/createuser" element={<CreateUser/>} />
-//             </Routes>
-//         </BrowserRouter>
-//     )
-// }
+    return (
+        <Routes>
+          <Route path="/" element={<MainPage/>} exact />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/dashboard" element={
+                <AuthenticateUser user={LoginStore.getCurrentUser()}>
+                    <Dashboard/>
+                </AuthenticateUser>
+            } 
+          />
+          <Route path="/createuser" element={<CreateUser/>} />
+        </Routes>
+    )
+}

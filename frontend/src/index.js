@@ -1,27 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import './css/index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "jquery/dist/jquery.min.js";
 import "bootstrap/dist/js/bootstrap.min.js";
 
-import MainPage from './js/views/mainpage.jsx';
-import Login from './js/views/login.jsx';
-import Dashboard from './js/views/dashboard';
-import CreateUser from './js/views/createuser.jsx';
+import App from "./App"
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<MainPage/>} exact />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/dashboard" element={<Dashboard/>} />
-          <Route path="/createuser" element={<CreateUser/>} />
-        </Routes>
+        <App />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
