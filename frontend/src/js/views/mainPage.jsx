@@ -3,7 +3,7 @@ import React from "react";
 import Nav from "../components/nav.jsx"
 import Footer from "../components/footer.jsx"
 
-import '../../css/mainPage.css';
+import '../../css/mainpage.css';
 import video from "../../static/test.mp4";
 
 export default class MainPage extends React.Component {
