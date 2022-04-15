@@ -1,5 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+
+import Nav from "../components/nav.jsx"
+import Footer from "../components/footer.jsx"
 
 import first from "../../static/first.jpg";
 import second from "../../static/second.jpg";
@@ -33,23 +35,47 @@ export default class Login extends React.Component {
         await LoginStore.loginUser(loginDetails);
     }
 
+    renderNav() {
+        return (
+            <Nav />
+        )
+    }
+
+    renderFooter() {
+        return (
+            <Footer />
+        )
+    }
+
+    renderSlides() {
+        return (
+            <div className="col-sm-7 d-none d-sm-block" style={{ marginTop: "20vh", paddingLeft: "10vw" }}>
+                <div className="carousel slide" data-ride="carousel" id="slides">
+                    <ol className="carousel-indicators" style={{ paddingLeft: "21vw" }}>
+                        <li data-target="#slides" data-slide-to="0" className="active" style={{ paddingLeft: "4vw" }}></li>
+                        <li data-target="#slides" data-slide-to="1" style={{ paddingLeft: "4vw" }}></li>
+                        <li data-target="#slides" data-slide-to="2" style={{ paddingLeft: "4vw" }}></li>
+                    </ol>
+                    <div className="carousel-inner" style={{ height: "50vh", width: "50vw" }}>
+                        <div className="carousel-item active">
+                            <img className="img-fluid" src={first} alt="first slide" style={{ height: "50vh", width: "70vw" }} />
+                        </div>
+                        <div className="carousel-item">
+                            <img className="img-fluid" src={second} alt="second slide" style={{ height: "50vh", width: "70vw" }} />
+                        </div>
+                        <div className="carousel-item">
+                            <img className="img-fluid" src={third} alt="third slide" style={{ height: "50vh", width: "70vw" }} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     render() {
         return (
             <div>
-                <nav className="fixed-top navbar navbar-expand bg-dark navbar-dark" style={{ height: "75px" }}>
-                    <p className="navbar-brand" style={{ marginTop: "5px", marginLeft: "40px" }}>ResourceEdu</p>
-                    <div className="collapse navbar-collapse" id="collapsibleNavbar">
-                        <ul className="navbar-nav flex-row ml-md-auto d-sm-none d-md-flex">
-                            <li className="nav-item">
-                                <Link className="nav-link" to='/login'>Login</Link>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="/">About this project</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-    
+                {this.renderNav()}
                 <div className="container" style={{ marginLeft: "5vw" }}>
                     <div className="row">
                         <div className="jumbotron col-sm-5 pt-4 pb-3" style={{ height: "400px", width: "30vw", marginTop: "20vh", backgroundColor: "orange" }}>
@@ -70,33 +96,10 @@ export default class Login extends React.Component {
                                 </div>
                             </div>
                         </div>
-    
-                        <div className="col-sm-7 d-none d-sm-block" style={{ marginTop: "20vh", paddingLeft: "10vw" }}>
-                            <div className="carousel slide" data-ride="carousel" id="slides">
-                                <ol className="carousel-indicators" style={{ paddingLeft: "21vw" }}>
-                                    <li data-target="#slides" data-slide-to="0" className="active" style={{ paddingLeft: "4vw" }}></li>
-                                    <li data-target="#slides" data-slide-to="1" style={{ paddingLeft: "4vw" }}></li>
-                                    <li data-target="#slides" data-slide-to="2" style={{ paddingLeft: "4vw" }}></li>
-                                </ol>
-                                <div className="carousel-inner" style={{ height: "50vh", width: "50vw" }}>
-                                    <div className="carousel-item active">
-                                        <img className="img-fluid" src={first} alt="first slide" style={{ height: "50vh", width: "70vw" }} />
-                                    </div>
-                                    <div className="carousel-item">
-                                        <img className="img-fluid" src={second} alt="second slide" style={{ height: "50vh", width: "70vw" }} />
-                                    </div>
-                                    <div className="carousel-item">
-                                        <img className="img-fluid" src={third} alt="third slide" style={{ height: "50vh", width: "70vw" }} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {this.renderSlides()}
                     </div>
                 </div>
-    
-                <footer className="fixed-bottom bg-dark text-light">
-                  <p style={{marginLeft:"20px"}}>Built with Bootstrap 4.0</p>
-                </footer>
+                {this.renderFooter()}
             </div>
         );
     }

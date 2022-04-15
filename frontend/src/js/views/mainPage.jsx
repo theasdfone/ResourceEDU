@@ -1,28 +1,28 @@
 import React from "react";
-import { Link } from "react-router-dom";
+
+import Nav from "../components/nav.jsx"
+import Footer from "../components/footer.jsx"
 
 import '../../css/mainPage.css';
 import video from "../../static/test.mp4";
 
 export default class MainPage extends React.Component {
+  renderNav() {
+      return (
+          <Nav />
+      )
+  }
+
+  renderFooter() {
+      return (
+          <Footer />
+      )
+  }
 
   render() {
     return (
       <div>
-        <nav className="fixed-top navbar navbar-expand bg-dark navbar-dark" style={{ height: "75px" }}>
-          <p className="navbar-brand" style={{ marginTop: "5px", marginLeft: "40px" }}>ResourceEDU</p>
-          <div className="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul className="navbar-nav flex-row ml-md-auto d-sm-none d-md-flex">
-              <li className="nav-item">
-                <Link className="nav-link" to='/login'>Login</Link>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/">About this project</a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-  
+        {this.renderNav()}
         <div className="container" style={{ marginTop: "100px" }}>
           <div className="row">
             <div className="col-sm-4">
@@ -54,10 +54,8 @@ export default class MainPage extends React.Component {
             </div>
           </div>
         </div>
-  
-        <footer className="fixed-bottom bg-dark text-light">
-          <p style={{marginLeft:"20px"}}>Built with Bootstrap 4.0</p>
-        </footer>
+
+        {this.renderFooter()}
       </div>
     );
   }

@@ -15,11 +15,19 @@ const login = {
             })
         }).then((res) => {
             if(res.token) {
-                localStorage.setItem("username", res.username);
+                localStorage.setItem("user", JSON.stringify(res));
                 window.location.replace("/dashboard");
             }
         });
     },
+
+    logout() {
+        localStorage.removeItem("user");
+    },
+
+    getCurrentUser() {
+        return JSON.parse(localStorage.getItem("user"));
+    }
 };
 
 export default login;

@@ -1,25 +1,44 @@
 import React from "react";
 import '../../css/loginHome.css';
 
+import { Link } from "react-router-dom";
+
+import Footer from "../components/footer.jsx"
+
 import learn from "../../static/learn.jpg"
 import coop from "../../static/coop.jpg"
 import lifestyle from "../../static/uwlife.jpg"
 
 export default class LoginHome extends React.Component {
+    renderNav() {
+        return(
+        <nav className="fixed-top navbar navbar-expand bg-dark navbar-dark" style={{ height: "75px" }}>
+            <p className="navbar-brand" style={{ marginTop: "5px", marginLeft: "40px" }}>ResourceEdu</p>
+            <div className="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul className="navbar-nav flex-row ml-md-auto d-sm-none d-md-flex">
+                    <li className="nav-item">
+                        <Link className="nav-link" to='/login'>Login</Link>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="/">About this project</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        )
+    }
+
+    renderFooter() {
+        return (
+            <Footer />
+        )
+    }
+
     render() {
         return (
             <div>
-                <nav className="fixed-top navbar navbar-expand bg-dark navbar-dark" style={{ height: "75px" }}>
-                    <p className="navbar-brand" style={{ marginTop: "5px", marginLeft: "40px" }}>ResourceEdu</p>
-                    <div className="collapse navbar-collapse" id="collapsibleNavbar">
-                        <ul className="navbar-nav flex-row ml-md-auto d-sm-none d-md-flex">
-                            <li className="nav-item">
-                                <a className="nav-link" href="/">About this project</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-    
+                {this.renderNav()}
+
                 <div className="container d-flex justify-content-center align-items-center jumbotron text-light title">
                     <h1>Learn about Campus Life</h1>
                 </div>
@@ -39,10 +58,8 @@ export default class LoginHome extends React.Component {
                         </a>
                     </div>
                 </div>
-    
-                <footer className="fixed-bottom bg-dark text-light">
-                    <p style={{marginLeft:"20px"}}>Built with Bootstrap 4.0</p>
-                </footer>
+
+                {this.renderFooter()}
             </div>
         );
     }
