@@ -19,28 +19,33 @@ export default class MainPage extends React.Component {
       )
   }
 
+  renderSidemenu() {
+    return (
+      <div className="col-sm-4 side-menu">
+        <h3>Checkout some other cool resources!</h3>
+        <p>Links shown below:</p>
+        <div className="list-group listed">
+            <a className="list-group-item list-group-item-action active" href="https://github.com/theasdfone/ResourceEdu">
+              Github
+            </a>
+            <a className="list-group-item list-group-item-action" href="https://docs.google.com/document/d/1k1z6zoMlGZnGI0lVxAFdIeLqrFFSv6z9KVPk8ZyZseI/edit?usp=sharing">
+              Documentation
+            </a>
+            <a className="list-group-item list-group-item-action" href="https://www.figma.com/file/wax2LoqMRlTQoQFIIcxhwT/ResourceEDU?node-id=0%3A1">
+              Design
+            </a>
+        </div>
+      </div>
+    )
+  }
+
   render() {
     return (
       <div>
         {this.renderNav()}
-        <div className="container" style={{ marginTop: "100px" }}>
+        <div className="container main-page">
           <div className="row">
-            <div className="col-sm-4">
-              <h3>Checkout some other cool resources!</h3>
-              <p>Links shown below:</p>
-              <ul className="nav nav-pills flex-column">
-                <li className="nav-item">
-                  <a className="nav-link active" href="#">Github</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">Documentation</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">Design</a>
-                </li>
-              </ul>
-              <hr className="d-sm-none"></hr>
-            </div>
+            {this.renderSidemenu()}
             <div className="col-sm-8">
               <h2>ResourceEDU</h2>
               <h5>A site for students to share and post resources</h5>
