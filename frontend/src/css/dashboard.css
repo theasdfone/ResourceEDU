@@ -9,16 +9,26 @@
   height: 75px;
 }
 
+.nav-menu-container {
+  margin-right: 15px;
+}
+
+.nav-center-logo {
+  margin-bottom: 4px;
+  margin-left: 40px;
+}
+
+.nav-settings-icon {
+  padding-top: 10px;
+  height: 32px;
+  width: 32px;
+}
+
 .footer {
   position: relative;
   height: 40px;
   width: 100%;
   bottom: 0;
-}
-
-.nav-center {
-  margin-bottom: 4px;
-  margin-left: 40px;
 }
 
 .dashboard-images {
@@ -59,7 +69,7 @@ a:hover .dashboard-images{
 
 .dashboard-username {
   padding-right: 10px;
-  font-size: 17px;
+  font-size: 1rem;
 }
 
 .resource-doc {

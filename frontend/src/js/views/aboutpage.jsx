@@ -3,14 +3,19 @@ import React from "react";
 import Nav from "../components/nav.jsx"
 import Footer from "../components/footer.jsx"
 
+import LoginStore from "../api/login";
 import '../../css/aboutpage.css';
 
 import learn from "../../static/dashboard.png"
 
 export default class AboutPage extends React.Component {
     renderNav() {
-        return (
-            <Nav />
+        const user = LoginStore.getCurrentUser()?.username;
+
+        return(
+            <Nav
+                user={user}
+            />
         )
     }
   
