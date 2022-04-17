@@ -1,6 +1,7 @@
 import React from "react";
 import '../../css/dashboard.css';
 
+import Nav from "../components/nav.jsx"
 import Footer from "../components/footer.jsx"
 
 import LoginStore from "../api/login";
@@ -14,22 +15,9 @@ export default class LoginHome extends React.Component {
         const user = LoginStore.getCurrentUser().username;
 
         return(
-            <nav className="fixed-top navbar navbar-expand bg-dark navbar-dark navbar-container">
-                <div className="collapse navbar-collapse" id="collapsibleNavbar">
-                    <a href="/" className="navbar-brand nav-center">ResourceEDU</a>
-                    <ul className="navbar-nav flex-row ml-md-auto">
-                        <li className="nav-item">
-                            <span className="navbar-text dashboard-username">Hello {user}</span>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" onClick={LoginStore.logout} href='/'>Logout</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="/">About this project</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <Nav
+                user={user}
+            />
         )
     }
 
@@ -41,7 +29,7 @@ export default class LoginHome extends React.Component {
 
     render() {
         return (
-            <div className="dashboard">
+            <div>
                 {this.renderNav()}
                 <div className="container d-flex justify-content-center align-items-center jumbotron text-light resource-doc">
                     <h1>Resource Docs</h1>

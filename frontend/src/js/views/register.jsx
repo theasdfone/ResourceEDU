@@ -1,5 +1,7 @@
 import React from "react";
 
+import "../../css/register.css"
+
 import Nav from "../components/nav.jsx"
 import Footer from "../components/footer.jsx"
 
@@ -8,7 +10,9 @@ import RegisterStore from "../api/register";
 export default class Register extends React.Component {
     state = {
         username: "",
-        password: ""
+        password: "",
+        confirm: "",
+        registerfail: false
     }
     
     fieldHandler = (event) => {
@@ -20,15 +24,34 @@ export default class Register extends React.Component {
         });
     }
 
+    usernameCheck(username) {
+        var characters = /[!@#$%^&*()+\-=\[\]{};':"\\|,<>\/? ]+/;
+
+        if(characters.test(username)) {
+            return false;
+        }
+        
+        return true;
+    }
+
     registerHandler = async () => {
-        const { username, password } = this.state;
+        const { username, password, confirm } = this.state;
 
         let registerDetails = {
             username: username,
-            password: password
+            password: password,
         }
 
-        await RegisterStore.registerNewUser(registerDetails);
+        if(password === confirm 
+            && (username, password, confirm)
+            && (password.length >= 8)
+            && (this.usernameCheck(username))) {
+            await RegisterStore.registerNewUser(registerDetails);
+        } else {
+            this.setState({
+                registerfail: true
+            })
+        }
     }
 
     renderNav() {
@@ -47,24 +70,39 @@ export default class Register extends React.Component {
         return (
             <div>
                 {this.renderNav()}    
-                <div className="container">
-                    <div className="row no-gutters">
-                        <div className="jumbotron float-left" style={{ marginTop: "25vh", height: "45vh", width: "20vw", paddingTop: "4vh" }}>
-                            <h2>Register</h2>
+                <div className="container register-main">
+                    <div className="row">
+                        <div className="jumbotron pt-4 pb-3 register-form">
+                            <h2>Register New Account</h2>
                             <div>
-                                <label for="username"> New Username</label>
-                                <input type="text" className="form-control" placeholder="New Username" name="username" onChange={this.fieldHandler}/>
-                                <label for="password"> New Password</label>
-                                <input type="password" className="form-control" placeholder="New Password" name="password" onChange={this.fieldHandler}/>
-                                {/* <label for="confirm"> Confirm Password</label>
-                                <input type="password" className="form-control" placeholder="Confirm Password" name="confirm" /> */}
-    
+                                <div>
+                                    <label>New Username</label>
+                                    <input type="text" className="form-control" placeholder="New Username" name="username" onChange={this.fieldHandler}/>
+                                    {this.state.registerfail 
+                                    ?
+                                        <span>Username can only contain letters, numbers, periods and underscores</span>
+                                    : ""}
+                                </div>
+                                <div>
+                                    <label>New Password</label>
+                                    <input type="password" className="form-control" placeholder="New Password" name="password" onChange={this.fieldHandler}/>
+                                    {this.state.registerfail 
+                                    ?
+                                        <span>Password must be greater than 8 characters</span>
+                                    : ""}
+                                </div>
+                                <div>
+                                    <label>Confirm Password</label>
+                                    <input type="password" className="form-control" placeholder="Confirm Password" name="confirm" onChange={this.fieldHandler}/>
+                                    {this.state.registerfail 
+                                    ?
+                                        <span>Password must be greater than 8 characters</span>
+                                    : ""}
+                                </div>
                                 <div className="mt-3">
-                                    <button onClick={this.registerHandler}>Register</button>
+                                    <button className="btn btn-light" onClick={this.registerHandler}>Register</button>
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-sm-6">
                         </div>
                     </div>
                 </div>

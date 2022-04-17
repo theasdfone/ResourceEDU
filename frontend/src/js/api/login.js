@@ -10,6 +10,8 @@ const login = {
             fetch("/signin", requestBody)
             .then((res) => {
                 if(res.ok) resolve(res.json());
+                else if(res.status === 401) resolve("Authentication Denied");
+                else reject(new Error("Error"));
             }).catch((error) => {
                 reject(error);
             })

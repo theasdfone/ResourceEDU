@@ -1,23 +1,14 @@
 .login-main {
     margin-top: 100px;
+    margin-left: 5vw;
 }
 
 .login-form {
-    height: 400px;
+    height: 375px;
     width: 30vw;
     background-color: orange;
 }
 
 .register-button {
     margin-left: 10px;
-}
-
-.slide-overview {
-    height: 50vh;
-    width: 50vw;
-}
-
-.slide-overview .slide-height {
-    height: 50vh;
-    width: 50vw;
 }
