@@ -14,10 +14,6 @@ export default class Login extends React.Component {
         loginfailed: false
     }
 
-    componentDidMount() {
-
-    }
-    
     fieldHandler = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -25,6 +21,12 @@ export default class Login extends React.Component {
         this.setState({
             [name]: value
         });
+    }
+
+    handleEnterEvent = (event) => {
+        if(event.key === 'Enter') {
+            this.loginHandler();
+        }
     }
 
     loginHandler = async () => {
@@ -67,11 +69,19 @@ export default class Login extends React.Component {
                         <div className="jumbotron pt-4 pb-3 login-form">
                             <div className="form-group">
                                 <h3>User Login</h3>
-                                <label>Username</label>
-                                <input type="username" className="form-control" placeholder="Enter Username" name="username" onChange={this.fieldHandler}/>
-                                <div className="pt-3">
+                                <div className={`${this.state.loginfailed ? "input-failed" : ""}`}>
+                                    <label>Username</label>
+                                    <input type="text" className="form-control" placeholder="Enter Username" name="username" 
+                                        onChange={this.fieldHandler}
+                                        onKeyDown={this.handleEnterEvent}
+                                    />
+                                </div>
+                                <div className={`pt-3 ${this.state.loginfailed ? "input-failed" : ""}`}>
                                     <label>Password</label>
-                                    <input type="password" className="form-control" placeholder="Enter Password" name="password" onChange={this.fieldHandler}/>
+                                    <input type="password" className="form-control" placeholder="Enter Password" name="password" 
+                                        onChange={this.fieldHandler}
+                                        onKeyDown={this.handleEnterEvent}
+                                    />
                                 </div>
                                 {this.state.loginfailed 
                                 ?

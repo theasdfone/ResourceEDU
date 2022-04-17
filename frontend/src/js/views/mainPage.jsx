@@ -22,8 +22,7 @@ export default class MainPage extends React.Component {
   renderSidemenu() {
     return (
       <div className="col-sm-4 side-menu">
-        <h3>Checkout some other cool resources!</h3>
-        <p>Links shown below:</p>
+        <h3>Links below for project details</h3>
         <div className="list-group listed">
             <a className="list-group-item list-group-item-action active" href="https://github.com/theasdfone/ResourceEdu">
               Github
@@ -48,7 +47,7 @@ export default class MainPage extends React.Component {
             {this.renderSidemenu()}
             <div className="col-sm-8">
               <h2>ResourceEDU</h2>
-              <h5>A site for students to share and post resources</h5>
+              <h5>A site for students to store and share resources</h5>
               <div className="fakeimg">Fake Image</div>
               <p>Some text..</p>
               <p>Hey all, welcome to the resource drive. This is a WiP but more features and resources are on the way.
@@ -59,7 +58,6 @@ export default class MainPage extends React.Component {
             </div>
           </div>
         </div>
-
         {this.renderFooter()}
       </div>
     );

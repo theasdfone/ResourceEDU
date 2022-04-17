@@ -9,6 +9,13 @@
   height: 75px;
 }
 
+.footer {
+  position: relative;
+  height: 40px;
+  width: 100%;
+  bottom: 0;
+}
+
 .nav-center {
   margin-bottom: 4px;
   margin-left: 40px;
@@ -28,6 +35,11 @@ a:hover .dashboard-images{
   transition: all .2s ease-in-out;
   transform: scale(1.1);
   z-index: 9999;
+}
+
+.dashboard-container {
+  min-height: calc(100vh - 145px);
+  margin-top: 30px;
 }
 
 .dashboard-text-container {
@@ -51,7 +63,6 @@ a:hover .dashboard-images{
 }
 
 .resource-doc {
-  margin-top: 30px;
   height: 150px;
   width: 750px;
   background-color: orange;

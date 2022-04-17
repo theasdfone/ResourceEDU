@@ -54,6 +54,12 @@ export default class Register extends React.Component {
         }
     }
 
+    handleEnterEvent = (event) => {
+        if(event.key === 'Enter') {
+            this.registerHandler();
+        }
+    }
+
     renderNav() {
         return (
             <Nav />
@@ -75,25 +81,34 @@ export default class Register extends React.Component {
                         <div className="jumbotron pt-4 pb-3 register-form">
                             <h2>Register New Account</h2>
                             <div>
-                                <div>
+                                <div className={`${this.state.registerfail ? "input-failed" : ""}`}>
                                     <label>New Username</label>
-                                    <input type="text" className="form-control" placeholder="New Username" name="username" onChange={this.fieldHandler}/>
+                                    <input type="text" className="form-control" placeholder="New Username" name="username" 
+                                        onChange={this.fieldHandler}
+                                        onKeyDown={this.handleEnterEvent}
+                                    />
                                     {this.state.registerfail 
                                     ?
                                         <span>Username can only contain letters, numbers, periods and underscores</span>
                                     : ""}
                                 </div>
-                                <div>
+                                <div className={`pt-3 ${this.state.registerfail ? "input-failed" : ""}`}>
                                     <label>New Password</label>
-                                    <input type="password" className="form-control" placeholder="New Password" name="password" onChange={this.fieldHandler}/>
+                                    <input type="password" className="form-control" placeholder="New Password" name="password" 
+                                        onChange={this.fieldHandler}
+                                        onKeyDown={this.handleEnterEvent}
+                                    />
                                     {this.state.registerfail 
                                     ?
                                         <span>Password must be greater than 8 characters</span>
                                     : ""}
                                 </div>
-                                <div>
+                                <div className={`pt-3 ${this.state.registerfail ? "input-failed" : ""}`}>
                                     <label>Confirm Password</label>
-                                    <input type="password" className="form-control" placeholder="Confirm Password" name="confirm" onChange={this.fieldHandler}/>
+                                    <input type="password" className="form-control" placeholder="Confirm Password" name="confirm" 
+                                        onChange={this.fieldHandler}
+                                        onKeyDown={this.handleEnterEvent}
+                                    />
                                     {this.state.registerfail 
                                     ?
                                         <span>Password must be greater than 8 characters</span>
