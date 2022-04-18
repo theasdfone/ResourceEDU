@@ -8,10 +8,14 @@ import "../../css/login.css"
 import LoginStore from "../api/login";
 
 export default class Login extends React.Component {
-    state = {
-        username: "",
-        password: "",
-        loginfailed: false
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            username: "",
+            password: "",
+            loginfailed: false
+        };
     }
 
     fieldHandler = (event) => {

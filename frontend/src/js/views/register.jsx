@@ -8,11 +8,15 @@ import Footer from "../components/footer.jsx"
 import RegisterStore from "../api/register";
 
 export default class Register extends React.Component {
-    state = {
-        username: "",
-        password: "",
-        confirm: "",
-        registerfail: false
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            username: "",
+            password: "",
+            confirm: "",
+            registerfail: false
+        };
     }
     
     fieldHandler = (event) => {
@@ -25,13 +29,13 @@ export default class Register extends React.Component {
     }
 
     usernameCheck(username) {
-        var characters = /[!@#$%^&*()+\-=\[\]{};':"\\|,<>\/? ]+/;
+        var characters = /^[\w.-]*$/;
 
         if(characters.test(username)) {
-            return false;
+            return true;
         }
         
-        return true;
+        return false;
     }
 
     registerHandler = async () => {

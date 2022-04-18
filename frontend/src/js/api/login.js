@@ -5,16 +5,16 @@ const login = {
                 method: "POST",
                 headers: {"Content-Type":"application/json"},
                 body: JSON.stringify(loginData)
-            }
-    
+            };
+
             fetch("/signin", requestBody)
             .then((res) => {
                 if(res.ok) resolve(res.json());
                 else if(res.status === 401) resolve("Authentication Denied");
-                else reject(new Error("Error"));
+                else reject("Error");
             }).catch((error) => {
                 reject(error);
-            })
+            });
         }).then((res) => {
             if(res.token) {
                 localStorage.setItem("user", JSON.stringify(res));

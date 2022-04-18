@@ -21,9 +21,10 @@ export default class Nav extends React.Component {
                 }
                 {this.props.user 
                     ?   <li className="nav-item dropdown">
-                            <img className="nav-settings-icon dropdown-toggle" type="button" id="drop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src={gear} alt="gear" />
+                            <img className="nav-settings-icon dropdown-toggle" type="button" id="drop" data-toggle="dropdown" src={gear} alt="gear" />
                             <div className="dropdown-menu dropdown-menu-right">
-                                <a className="dropdown-item" href="/dashboard" >Home</a>
+                                <a className="dropdown-item" href="/">Home</a>
+                                <a className="dropdown-item" href="/dashboard">Dashboard</a>
                                 <a className="dropdown-item" href="/about">About this project</a>
                                 <a className="dropdown-item" onClick={LoginStore.logout} href='/'>Logout</a>
                             </div>

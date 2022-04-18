@@ -60,6 +60,25 @@ a:hover .dashboard-images{
   width: 150px;
 }
 
+.dashboard-file-container {
+  margin-top: 30px;
+  padding-top: 20px;
+  min-height: 300px;
+  width: 1140px;
+}
+
+.dashboard-table-container {
+  min-height: 50px;
+}
+
+.dashboard-table-container th,
+.dashboard-table-container td
+{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .dashboard-text {
   position: relative;
   text-align: center;

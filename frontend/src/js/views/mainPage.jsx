@@ -3,15 +3,21 @@ import React from "react";
 import Nav from "../components/nav.jsx"
 import Footer from "../components/footer.jsx"
 
+import LoginStore from "../api/login";
 import '../../css/mainpage.css';
+
 import video from "../../static/test.mp4";
 
 export default class MainPage extends React.Component {
   renderNav() {
-      return (
-          <Nav />
-      )
-  }
+    const user = LoginStore.getCurrentUser()?.username;
+
+    return(
+        <Nav
+            user={user}
+        />
+    )
+}
 
   renderFooter() {
       return (
@@ -28,10 +34,7 @@ export default class MainPage extends React.Component {
               Github
             </a>
             <a className="list-group-item list-group-item-action" href="https://docs.google.com/document/d/1k1z6zoMlGZnGI0lVxAFdIeLqrFFSv6z9KVPk8ZyZseI/edit?usp=sharing">
-              Documentation
-            </a>
-            <a className="list-group-item list-group-item-action" href="https://www.figma.com/file/wax2LoqMRlTQoQFIIcxhwT/ResourceEDU?node-id=0%3A1">
-              Design
+              Design Doc
             </a>
         </div>
       </div>
