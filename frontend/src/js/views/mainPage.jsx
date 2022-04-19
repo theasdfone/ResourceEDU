@@ -6,6 +6,7 @@ import Footer from "../components/footer.jsx"
 import LoginStore from "../api/login";
 import '../../css/mainpage.css';
 
+import dashboard from "../../static/dashboard.png";
 import video from "../../static/test.mp4";
 
 export default class MainPage extends React.Component {
@@ -51,7 +52,7 @@ export default class MainPage extends React.Component {
             <div className="col-sm-8">
               <h2>ResourceEDU</h2>
               <h5>A site for students to store and share resources</h5>
-              <div className="fakeimg">Fake Image</div>
+              <img className="main-img" src={dashboard} alt="Resource Dashboard"/>
               <p>Some text..</p>
               <p>Hey all, welcome to the resource drive. This is a WiP but more features and resources are on the way.
                 You will need to register an account to access/post resources to this site. In the meantime, enjoy the video down below ;)</p>
