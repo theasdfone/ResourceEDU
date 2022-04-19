@@ -29,6 +29,11 @@ const login = {
 
     getCurrentUser() {
         return JSON.parse(localStorage.getItem("user"));
+    },
+
+    authHeader() {
+        const user = this.getCurrentUser();
+        return user ? {Authorization: "Bearer " + user.token} : {};
     }
 };
 

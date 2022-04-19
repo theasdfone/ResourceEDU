@@ -4,7 +4,7 @@ import Nav from "../components/nav.jsx"
 import Footer from "../components/footer.jsx"
 
 import LoginStore from "../api/login";
-import DocumentStore from "../api/login";
+import DocumentStore from "../api/documents";
 import '../../css/dashboard.css';
 
 import plus from "../../static/icons/plus.svg"
@@ -24,7 +24,7 @@ export default class LoginHome extends React.Component {
         this.fileRef = React.createRef();
     }
 
-    uploadFileHandler = (event) => {
+    uploadFileHandler = async (event) => {
         let data = this.state.data;
 
         let displayFile = {
@@ -39,7 +39,7 @@ export default class LoginHome extends React.Component {
         const fileData = new FormData();
         fileData.append("file", event.target.files[0]);
 
-        // await DocumentStore.upload(fileData);
+        await DocumentStore.upload(fileData);
 
         this.setState({
             data: data,
