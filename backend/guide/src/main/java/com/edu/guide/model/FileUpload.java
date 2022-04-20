@@ -30,8 +30,8 @@ public class FileUpload {
     private Double fileSize;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY, optional = true)
-    @Column(name = "user_id")
-    private Long userId;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     public FileUpload(String filepath, String name, String date, String fileType, Double fileSize) {
         this.filePath = filepath;
