@@ -1,29 +1,28 @@
 package com.edu.guide.controller;
 
+import com.edu.guide.model.FileUpload;
+import com.edu.guide.model.ResponseBody;
+import com.edu.guide.service.FileService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
 @RequestMapping(value = "/file")
 public class FileController {
+    @Autowired
+    private FileService fileService;
 
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile multipartFile) throws IOException {
+    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile multipartFile, FileUpload file) throws IOException{
         //TODO: Need to implement necessary aws s3 storage api
-        File path = new File("C:\\ResourceEDU-File-Storage\\" + multipartFile.getOriginalFilename());
-        path.createNewFile();
+        String storedFile = fileService.localUpload(multipartFile, file);
 
-        FileOutputStream output = new FileOutputStream(path);
-
-        output.write(multipartFile.getBytes());
-        output.close();
-
-        return ResponseEntity.ok("Upload Successful");
+        return ResponseEntity.ok().body(new ResponseBody(HttpServletResponse.SC_OK, storedFile));
     }
 
     @GetMapping("/get")

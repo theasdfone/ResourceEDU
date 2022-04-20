@@ -21,6 +21,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String uuid;
+
     @Column(name = "username")
     private String username;
 
@@ -34,5 +36,4 @@ public class User {
         this.username = username;
         this.password = password;
     }
-
 }

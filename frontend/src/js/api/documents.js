@@ -1,12 +1,12 @@
 import Login from "./login"
 
 const documents = {
-    upload(formData) {
+    upload(formData, displayData) {
         return new Promise((resolve, reject) => {
             const requestBody = {
                 method: "POST",
                 headers: Login.authHeader(),
-                body: formData
+                body: JSON.stringify({formData, displayData})
             };
 
             fetch("/file/upload", requestBody)

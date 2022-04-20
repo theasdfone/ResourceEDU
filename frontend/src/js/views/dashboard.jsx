@@ -39,7 +39,7 @@ export default class LoginHome extends React.Component {
         const fileData = new FormData();
         fileData.append("file", event.target.files[0]);
 
-        await DocumentStore.upload(fileData);
+        await DocumentStore.upload(fileData, displayFile);
 
         this.setState({
             data: data,
@@ -82,6 +82,11 @@ export default class LoginHome extends React.Component {
             />
         )
     }
+
+    //TODO: Implement search by name, file type
+    // renderSearchBar() {
+
+    // }
 
     renderStorageLinks() {
         return(

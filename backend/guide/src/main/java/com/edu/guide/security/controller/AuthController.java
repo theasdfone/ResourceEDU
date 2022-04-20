@@ -1,5 +1,6 @@
 package com.edu.guide.security.controller;
-import com.edu.guide.model.JwtResponse;
+import com.edu.guide.model.Jwt;
+import com.edu.guide.model.ResponseBody;
 import com.edu.guide.model.User;
 import com.edu.guide.security.service.UserService;
 import com.edu.guide.utils.JwtUtils;
@@ -29,7 +30,6 @@ public class AuthController {
     private JwtUtils jwtUtils;
 
     @PostMapping("/signup")
-    @ResponseBody
     public ResponseEntity<?> submitForm(@RequestBody User user) {
         if(userService.findUsername(user.getUsername()) != null) {
             return ResponseEntity.badRequest().body("Username is taken");
@@ -51,6 +51,6 @@ public class AuthController {
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        return ResponseEntity.ok(new JwtResponse(jwtToken, userDetails.getUsername()));
+        return ResponseEntity.ok(new Jwt(jwtToken, userDetails.getUsername()));
     }
 }

@@ -7,12 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonSerialize
-public class JwtResponse {
-
+public class Jwt {
     private String token;
     private String username;
 
-    public JwtResponse(String accessToken, String username) {
+    public Jwt(String accessToken, String username) {
         this.token = accessToken;
         this.username = username;
     }
