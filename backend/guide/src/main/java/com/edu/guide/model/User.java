@@ -18,8 +18,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String uuid;
-
     @Column(name = "username")
     private String username;
 
@@ -28,7 +26,7 @@ public class User {
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, mappedBy = "user")
-    private List<FileUpload> shoppingCartList = new AutoPopulatingList<FileUpload>(FileUpload.class);
+    private List<FileUpload> fileUploadList = new AutoPopulatingList<FileUpload>(FileUpload.class);
 
     public User() {
     }

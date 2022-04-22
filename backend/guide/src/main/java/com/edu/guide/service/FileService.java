@@ -25,6 +25,8 @@ public class FileService {
         output.write(multipartFile.getBytes());
         output.close();
 
+        file.setFilePath(path.getPath());
+
         return fileUploadDao.localUpload(file);
     }
 }
