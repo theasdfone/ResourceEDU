@@ -2,8 +2,11 @@ package com.edu.guide.controller;
 
 import com.edu.guide.model.FileUpload;
 import com.edu.guide.model.ResponseBody;
+import com.edu.guide.model.User;
+import com.edu.guide.security.service.UserService;
 import com.edu.guide.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,12 +18,23 @@ import java.io.IOException;
 @RequestMapping(value = "/file")
 public class FileController {
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private FileService fileService;
 
-    @PostMapping("/upload")
-    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile multipartFile, FileUpload file) throws IOException{
+    @PostMapping("/upload/{userId}")
+    public ResponseEntity<?> uploadFile(@RequestPart("file") MultipartFile multipartFile, @RequestPart("jsonData") FileUpload fileUpload, @PathVariable("userId") Long userId) throws IOException{
+        User user = userService.findByID(userId);
+
+        if(user == null || user.getId() == null) {
+            return ResponseEntity.ok().body("User not found");
+        }
+
+        fileUpload.setUser(user);
+
         //TODO: Need to implement necessary aws s3 storage api
-        String storedFile = fileService.localUpload(multipartFile, file);
+        String storedFile = fileService.localUpload(multipartFile, fileUpload);
 
         return ResponseEntity.ok().body(new ResponseBody(HttpServletResponse.SC_OK, storedFile));
     }

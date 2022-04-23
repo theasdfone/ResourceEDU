@@ -2,6 +2,7 @@ package com.edu.guide.security.controller;
 import com.edu.guide.model.Jwt;
 import com.edu.guide.model.ResponseBody;
 import com.edu.guide.model.User;
+import com.edu.guide.security.service.UserDetailsImpl;
 import com.edu.guide.security.service.UserService;
 import com.edu.guide.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +50,8 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwtToken = jwtUtils.generateToken(authentication);
 
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        return ResponseEntity.ok(new Jwt(jwtToken, userDetails.getUsername()));
+        return ResponseEntity.ok(new Jwt(userDetails.getId(),jwtToken, userDetails.getUsername()));
     }
 }

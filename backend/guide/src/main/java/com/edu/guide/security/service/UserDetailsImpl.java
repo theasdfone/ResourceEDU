@@ -11,12 +11,15 @@ import java.util.Collection;
 @Getter
 @Setter
 public class UserDetailsImpl implements UserDetails {
+    private Long id;
+
     private String username;
 
     @JsonIgnore
     private String password;
 
-    public UserDetailsImpl(String username, String password) {
+    public UserDetailsImpl(Long id, String username, String password) {
+        this.id = id;
         this.username = username;
         this.password = password;
     }

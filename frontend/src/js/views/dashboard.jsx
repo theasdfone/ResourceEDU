@@ -29,17 +29,19 @@ export default class LoginHome extends React.Component {
 
         let displayFile = {
             name: event.target.files[0].name,
-            dateUploaded: this.getCurrentDate(),
+            date: this.getCurrentDate(),
             fileType: event.target.files[0].name.split('.').pop(),
             fileSize: this.formatBytes(event.target.files[0].size),
         }
 
+        const fileData = new FormData();
+
+        fileData.append("file", event.target.files[0]);
+        fileData.append("jsonData", new Blob([JSON.stringify(displayFile)], {type: "application/json"}));
+
         data.push(displayFile);
 
-        const fileData = new FormData();
-        fileData.append("file", event.target.files[0]);
-
-        await DocumentStore.upload(fileData, displayFile);
+        await DocumentStore.upload(fileData);
 
         this.setState({
             data: data,
@@ -112,7 +114,7 @@ export default class LoginHome extends React.Component {
                             {this.state.data.map((file)=> (
                                     <tr className="d-flex dashboard-table-container" key={file.name}>
                                         <td className="col-3">{file.name}</td>
-                                        <td className="col-3">{file.dateUploaded}</td>
+                                        <td className="col-3">{file.date}</td>
                                         <td className="col-3">{file.fileType}</td>
                                         <td className="col-2">{file.fileSize}</td>
                                         <td className="col-1"/>

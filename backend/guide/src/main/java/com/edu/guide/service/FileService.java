@@ -4,6 +4,7 @@ import com.edu.guide.dao.FileUploadDao;
 import com.edu.guide.model.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -16,6 +17,7 @@ public class FileService {
     @Autowired
     private FileUploadDao fileUploadDao;
 
+    @Transactional
     public String localUpload(MultipartFile multipartFile, FileUpload file) throws IOException {
         File path = new File("C:\\ResourceEDU-File-Storage\\" + multipartFile.getOriginalFilename());
         path.createNewFile();

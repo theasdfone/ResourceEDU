@@ -8,10 +8,12 @@ import lombok.Setter;
 @Setter
 @JsonSerialize
 public class Jwt {
+    private Long id;
     private String token;
     private String username;
 
-    public Jwt(String accessToken, String username) {
+    public Jwt(Long id, String accessToken, String username) {
+        this.id = id;
         this.token = accessToken;
         this.username = username;
     }
