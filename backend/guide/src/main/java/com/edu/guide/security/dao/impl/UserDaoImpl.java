@@ -34,8 +34,9 @@ public class UserDaoImpl implements UserDao {
         public User findUsername(String username) {
             User user = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
                     .setParameter("username", username).getResultList().stream().findFirst().orElse(null);
+
             if(user == null) {
-                throw new EntityNotFoundException("Can't find user with username" + username);
+                return null;
             }
 
             return user;

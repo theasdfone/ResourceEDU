@@ -1,7 +1,9 @@
 package com.edu.guide.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -11,8 +13,9 @@ import javax.persistence.*;
 @Table(name = "file")
 public class FileUpload {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
 
     @Column(name = "file_path")
     private String filePath;
@@ -29,6 +32,7 @@ public class FileUpload {
     @Column(name = "file_size")
     private String fileSize;
 
+    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

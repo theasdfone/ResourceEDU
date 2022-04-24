@@ -6,13 +6,13 @@ import com.edu.guide.model.User;
 import com.edu.guide.security.service.UserService;
 import com.edu.guide.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/file")
@@ -39,10 +39,23 @@ public class FileController {
         return ResponseEntity.ok().body(new ResponseBody(HttpServletResponse.SC_OK, storedFile));
     }
 
-    @GetMapping("/get")
-    public ResponseEntity<?> getFile() {
-        //TODO: Get api
-        return ResponseEntity.ok("GET FILE RETURNED HERE");
+    @GetMapping("/getList/{userId}")
+    public ResponseEntity<?> getFileList(@PathVariable("userId") Long userId) {
+        User user = userService.findByID(userId);
+
+        if(user == null || user.getId() == null) {
+            return ResponseEntity.ok().body("User not found");
+        }
+
+        List<FileUpload> fileUploadList = fileService.getFiles(user);
+
+        return ResponseEntity.ok(fileUploadList);
+    }
+
+    @GetMapping("/download/{fileId}")
+    public ResponseEntity<?> downloadFile(@PathVariable("fileId") Long fileId) {
+
+        return ResponseEntity.ok("DOWNLOAD FILES");
     }
 
     @PostMapping("/update")

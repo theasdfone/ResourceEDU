@@ -24,6 +24,14 @@ export default class LoginHome extends React.Component {
         this.fileRef = React.createRef();
     }
 
+    componentDidMount() {
+        DocumentStore.getList().then((res) =>{
+            this.setState({
+                data: res
+            })
+        });
+    }
+
     uploadFileHandler = async (event) => {
         let data = this.state.data;
 

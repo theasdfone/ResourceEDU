@@ -1,7 +1,7 @@
 import Login from "./login"
 
 const documents = {
-    upload(fileData, userId) {
+    upload(fileData) {
         return new Promise((resolve, reject) => {
             const requestBody = {
                 method: "POST",
@@ -11,8 +11,24 @@ const documents = {
 
             fetch("/file/upload/" + Login.getCurrentUser().id, requestBody)
             .then((res) => {
-                console.log(res.status, res.ok, res);
                 if(res.ok) resolve("File Successfully Uploaded");
+                else resolve("Network Error")
+            }).catch((error) => {
+                reject(error);
+            });
+        });
+    },
+
+    getList() {
+        return new Promise((resolve, reject) => {
+            const requestBody = {
+                method: "GET",
+                headers: Login.authHeader(),
+            };
+
+            fetch("/file/getList/" + Login.getCurrentUser().id, requestBody)
+            .then((res) => {
+                if(res.ok) resolve(res.json());
                 else resolve("Network Error")
             }).catch((error) => {
                 reject(error);
