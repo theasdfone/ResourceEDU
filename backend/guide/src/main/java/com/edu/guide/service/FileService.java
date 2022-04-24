@@ -43,4 +43,8 @@ public class FileService {
 
         return fileUploadList;
     }
+
+    public FileUpload getFileById(String fileId) {
+        return fileUploadDao.getFileById(fileId);
+    }
 }

@@ -6,12 +6,19 @@ import com.edu.guide.model.User;
 import com.edu.guide.security.service.UserService;
 import com.edu.guide.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.file.FileSystem;
 import java.util.List;
 
 @RestController
@@ -53,9 +60,26 @@ public class FileController {
     }
 
     @GetMapping("/download/{fileId}")
-    public ResponseEntity<?> downloadFile(@PathVariable("fileId") Long fileId) {
+    public ResponseEntity<?> downloadFile(@PathVariable("fileId") String fileId) throws IOException {
 
-        return ResponseEntity.ok("DOWNLOAD FILES");
+        FileUpload file = fileService.getFileById(fileId);
+
+        if(file == null || file.getId() == null) {
+            return ResponseEntity.ok().body("File not found");
+        }
+
+        //TODO: AWS Response
+        Resource resource = new FileSystemResource(file.getFilePath());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+
+        return ResponseEntity.ok().headers(headers)
+                .contentLength(resource.contentLength())
+                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .body(new InputStreamResource(resource.getInputStream()));
     }
 
     @PostMapping("/update")

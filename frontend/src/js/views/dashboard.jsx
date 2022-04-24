@@ -8,10 +8,13 @@ import DocumentStore from "../api/documents";
 import '../../css/dashboard.css';
 
 import plus from "../../static/icons/plus.svg"
+import gear from "../../static/icons/gear.svg"
+import search from "../../static/icons/search.svg"
 
 import learn from "../../static/learn.png"
 import coop from "../../static/coop.png"
 import lifestyle from "../../static/uwlife.png"
+import documents from "../api/documents";
 
 export default class LoginHome extends React.Component {
     constructor(props) {
@@ -55,6 +58,26 @@ export default class LoginHome extends React.Component {
             data: data,
         });
     }
+
+    shareClickHandler = (fileId) => {
+        console.log(fileId);
+    }
+
+    downloadClickHandler = (fileId, fileName, fileType) => {
+        //Hacky, replace later
+        documents.download(fileId).then((blob) =>{
+            const link = document.createElement('a');
+            const url = window.URL.createObjectURL(blob);
+
+            link.href = url;
+            link.download = `${fileName}.${fileType}`;
+            link.click();
+        });
+    }
+
+    deleteClickHandler = (fileId) => {
+        console.log(fileId);
+    }
     
     fileClickHandler = () => {
         this.fileRef.current.click();
@@ -94,9 +117,16 @@ export default class LoginHome extends React.Component {
     }
 
     //TODO: Implement search by name, file type
-    // renderSearchBar() {
-
-    // }
+    renderSearchBar() {
+        return(
+            <div className="dashboard-searchbar-container">
+                <input className="dashboard-searchbar" type="text" placeholder="Search File"/>
+                <div className="dashboard-search-icon" type="button">
+                    <img src={search}/>
+                </div>
+            </div>
+        )
+    }
 
     renderStorageLinks() {
         return(
@@ -112,6 +142,8 @@ export default class LoginHome extends React.Component {
                                 <th className="col-1" scope="col">
                                     <img className="dropdown-toggle" type="button" id="drop" data-toggle="dropdown" src={plus} alt="plus" />
                                     <div className="dropdown-menu">
+                                        <div className="dropdown-item">Select Files</div>
+                                        <div className="dropdown-item">Select All</div>
                                         <input style={{display: 'none'}} ref={this.fileRef} accept=".pdf, .png, .jpg, .mp3, .mp4, .xls, .doc,.docx" type="file" onChange={this.uploadFileHandler}/>
                                         <div className="dropdown-item" onClick={this.fileClickHandler}>Add File</div>
                                     </div>
@@ -120,12 +152,19 @@ export default class LoginHome extends React.Component {
                         </thead>
                         <tbody>
                             {this.state.data.map((file)=> (
-                                    <tr className="d-flex dashboard-table-container" key={file.name}>
+                                    <tr className="d-flex dashboard-table-container" key={file.id}>
                                         <td className="col-3">{file.name}</td>
                                         <td className="col-3">{file.date}</td>
                                         <td className="col-3">{file.fileType}</td>
                                         <td className="col-2">{file.fileSize}</td>
-                                        <td className="col-1"/>
+                                        <td> 
+                                            <img className="dropdown-toggle" type="button" id="drop" data-toggle="dropdown" src={gear} alt="gear" />
+                                            <div className="dropdown-menu">
+                                                <div className="dropdown-item" onClick={() => this.shareClickHandler(file.id)}>Share</div>
+                                                <div className="dropdown-item" onClick={() => this.downloadClickHandler(file.id, file.name, file.fileType)}>Download</div>
+                                                <div className="dropdown-item" onClick={() => this.deleteClickHandler(file.id)}>Delete</div>
+                                            </div>
+                                        </td>
                                     </tr>
                                 ))
                             }
@@ -151,6 +190,7 @@ export default class LoginHome extends React.Component {
                         <h1>Resource Docs</h1>
                     </div>
                     <div className="container">
+                        {this.renderSearchBar()}
                         {this.renderStorageLinks()}
                         <h3>Curated Resources</h3>
                         <div className="d-flex row" id="dashboard-link-color">

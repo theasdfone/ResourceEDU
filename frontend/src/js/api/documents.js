@@ -34,6 +34,40 @@ const documents = {
                 reject(error);
             });
         });
+    },
+
+    download(fileId) {
+        return new Promise((resolve, reject) => {
+            const requestBody = {
+                method: "GET",
+                headers: Login.authHeader(),
+            };
+
+            fetch("/file/download/" + fileId, requestBody)
+            .then((res) => {
+                if(res.ok) resolve(res.blob());
+                else resolve("Network Error")
+            }).catch((error) => {
+                reject(error);
+            });
+        });
+    },
+
+    delete(fileId) {
+        return new Promise((resolve, reject) => {
+            const requestBody = {
+                method: "POST",
+                headers: Login.authHeader(),
+            };
+
+            fetch("/file/delete/" + fileId, requestBody)
+            .then((res) => {
+                if(res.ok) resolve(res.json());
+                else resolve("Network Error")
+            }).catch((error) => {
+                reject(error);
+            });
+        });
     }
 }
 

@@ -29,7 +29,7 @@ public class FileUploadDaoImpl implements FileUploadDao {
     }
 
     @Override
-    public FileUpload findFileById(Long fileId) {
+    public FileUpload getFileById(String fileId) {
         FileUpload fileUpload = em.find(FileUpload.class, fileId);
 
         if(fileUpload == null) {
