@@ -14,7 +14,6 @@ import search from "../../static/icons/search.svg"
 import learn from "../../static/learn.png"
 import coop from "../../static/coop.png"
 import lifestyle from "../../static/uwlife.png"
-import documents from "../api/documents";
 
 export default class LoginHome extends React.Component {
     constructor(props) {
@@ -50,12 +49,12 @@ export default class LoginHome extends React.Component {
         fileData.append("file", event.target.files[0]);
         fileData.append("jsonData", new Blob([JSON.stringify(displayFile)], {type: "application/json"}));
 
-        data.push(displayFile);
+        await DocumentStore.upload(fileData).then((res) => {
+            data.push(res);
 
-        await DocumentStore.upload(fileData);
-
-        this.setState({
-            data: data,
+            this.setState({
+                data: data,
+            });
         });
     }
 
@@ -65,7 +64,7 @@ export default class LoginHome extends React.Component {
 
     downloadClickHandler = (fileId, fileName, fileType) => {
         //Hacky, replace later
-        documents.download(fileId).then((blob) =>{
+        DocumentStore.download(fileId).then((blob) =>{
             const link = document.createElement('a');
             const url = window.URL.createObjectURL(blob);
 
@@ -75,8 +74,13 @@ export default class LoginHome extends React.Component {
         });
     }
 
-    deleteClickHandler = (fileId) => {
-        console.log(fileId);
+    deleteClickHandler = async (fileId) => {
+        await DocumentStore.delete(fileId);
+        DocumentStore.getList().then((res) =>{
+            this.setState({
+                data: res
+            })
+        });
     }
     
     fileClickHandler = () => {

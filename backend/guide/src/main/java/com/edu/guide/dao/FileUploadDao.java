@@ -6,7 +6,9 @@ import com.edu.guide.model.User;
 import java.util.List;
 
 public interface FileUploadDao {
-    String localUpload(FileUpload file);
+    FileUpload localUpload(FileUpload fileUpload);
+
+    String deleteFile(FileUpload fileUpload);
 
     List<FileUpload> getFiles(User user);
 

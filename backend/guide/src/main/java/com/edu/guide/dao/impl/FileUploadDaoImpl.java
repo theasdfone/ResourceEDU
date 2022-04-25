@@ -16,10 +16,17 @@ public class FileUploadDaoImpl implements FileUploadDao {
     private EntityManager em;
 
     @Override
-    public String localUpload(FileUpload file) {
-        em.persist(file);
+    public FileUpload localUpload(FileUpload fileUpload) {
+        em.persist(fileUpload);
 
-        return "succesful";
+        return fileUpload;
+    }
+
+    @Override
+    public String deleteFile(FileUpload fileUpload) {
+        em.remove(fileUpload);
+
+        return "successful";
     }
 
     @Override

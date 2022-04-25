@@ -11,7 +11,7 @@ const documents = {
 
             fetch("/file/upload/" + Login.getCurrentUser().id, requestBody)
             .then((res) => {
-                if(res.ok) resolve("File Successfully Uploaded");
+                if(res.ok) resolve(res.json());
                 else resolve("Network Error")
             }).catch((error) => {
                 reject(error);
@@ -62,7 +62,7 @@ const documents = {
 
             fetch("/file/delete/" + fileId, requestBody)
             .then((res) => {
-                if(res.ok) resolve(res.json());
+                if(res.ok) resolve(res);
                 else resolve("Network Error")
             }).catch((error) => {
                 reject(error);

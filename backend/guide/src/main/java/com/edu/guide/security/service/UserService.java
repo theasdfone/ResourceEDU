@@ -16,7 +16,6 @@ public class UserService{
         this.userDao = userDao;
     }
 
-
     @Transactional
     public User createUser(User user) {
         return userDao.createUser(user);
@@ -29,7 +28,6 @@ public class UserService{
     public User findUsername(String username) {
         return userDao.findUsername(username);
     }
-
 
     @Transactional
     public void delete(Long id) {

@@ -1,12 +1,10 @@
 package com.edu.guide.controller;
 
 import com.edu.guide.model.FileUpload;
-import com.edu.guide.model.ResponseBody;
 import com.edu.guide.model.User;
 import com.edu.guide.security.service.UserService;
 import com.edu.guide.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -16,9 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.file.FileSystem;
 import java.util.List;
 
 @RestController
@@ -41,9 +37,9 @@ public class FileController {
         fileUpload.setUser(user);
 
         //TODO: Need to implement necessary aws s3 storage api
-        String storedFile = fileService.localUpload(multipartFile, fileUpload);
+        FileUpload storedFile = fileService.localUpload(multipartFile, fileUpload);
 
-        return ResponseEntity.ok().body(new ResponseBody(HttpServletResponse.SC_OK, storedFile));
+        return ResponseEntity.ok(storedFile);
     }
 
     @GetMapping("/getList/{userId}")
@@ -62,14 +58,14 @@ public class FileController {
     @GetMapping("/download/{fileId}")
     public ResponseEntity<?> downloadFile(@PathVariable("fileId") String fileId) throws IOException {
 
-        FileUpload file = fileService.getFileById(fileId);
+        FileUpload fileUpload = fileService.getFileById(fileId);
 
-        if(file == null || file.getId() == null) {
+        if(fileUpload == null || fileUpload.getId() == null) {
             return ResponseEntity.ok().body("File not found");
         }
 
         //TODO: AWS Response
-        Resource resource = new FileSystemResource(file.getFilePath());
+        Resource resource = new FileSystemResource(fileUpload.getFilePath());
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -88,9 +84,16 @@ public class FileController {
         return ResponseEntity.ok("File Updated Successfully");
     }
 
-    @PostMapping("/delete")
-    public ResponseEntity<?> deleteFile() {
-        //TODO: Delete api
-        return ResponseEntity.ok("File Deleted Successfully");
+    @PostMapping("/delete/{fileId}")
+    public ResponseEntity<?> deleteFile(@PathVariable("fileId") String fileId) throws IOException{
+        FileUpload fileUpload = fileService.getFileById(fileId);
+
+        if(fileUpload == null || fileUpload.getId() == null) {
+            return ResponseEntity.ok().body("File not found");
+        }
+
+        String deleteFile = fileService.deleteFile(fileUpload);
+
+        return ResponseEntity.ok(deleteFile);
     }
 }

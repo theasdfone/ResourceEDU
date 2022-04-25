@@ -25,6 +25,7 @@ export default class Nav extends React.Component {
                             <div className="dropdown-menu dropdown-menu-right">
                                 <a className="dropdown-item" href="/">Home</a>
                                 <a className="dropdown-item" href="/dashboard">Dashboard</a>
+                                <a className="dropdown-item" href="/dashboard">Profile</a>
                                 <a className="dropdown-item" href="/about">About this project</a>
                                 <a className="dropdown-item" onClick={LoginStore.logout} href='/'>Logout</a>
                             </div>

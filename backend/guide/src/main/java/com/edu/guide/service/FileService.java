@@ -11,6 +11,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Service
@@ -20,7 +23,7 @@ public class FileService {
     private FileUploadDao fileUploadDao;
 
     @Transactional
-    public String localUpload(MultipartFile multipartFile, FileUpload file) throws IOException {
+    public FileUpload localUpload(MultipartFile multipartFile, FileUpload fileUpload) throws IOException {
         File path = new File("C:\\ResourceEDU-File-Storage\\" + multipartFile.getOriginalFilename());
         path.createNewFile();
 
@@ -29,9 +32,19 @@ public class FileService {
         output.write(multipartFile.getBytes());
         output.close();
 
-        file.setFilePath(path.getPath());
+        fileUpload.setFilePath(path.getPath());
 
-        return fileUploadDao.localUpload(file);
+        return fileUploadDao.localUpload(fileUpload);
+    }
+
+    @Transactional
+    public String deleteFile(FileUpload fileUpload) throws IOException{
+
+        Path fileDelete = Paths.get(fileUpload.getFilePath());
+
+        Files.delete(fileDelete);
+
+        return fileUploadDao.deleteFile(fileUpload);
     }
 
     public List<FileUpload> getFiles(User user) {
