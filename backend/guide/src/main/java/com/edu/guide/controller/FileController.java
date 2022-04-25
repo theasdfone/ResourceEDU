@@ -55,6 +55,19 @@ public class FileController {
         return ResponseEntity.ok(fileUploadList);
     }
 
+    @GetMapping("/getSearchList/{userId}")
+    public ResponseEntity<?> getSearchList(@PathVariable("userId") Long userId, @RequestParam(name = "search") String search) {
+        User user = userService.findByID(userId);
+
+        if(user == null || user.getId() == null) {
+            return ResponseEntity.ok().body("User not found");
+        }
+
+        List<FileUpload> fileUploadList = fileService.getSearchList(search, user);
+
+        return ResponseEntity.ok(fileUploadList);
+    }
+
     @GetMapping("/download/{fileId}")
     public ResponseEntity<?> downloadFile(@PathVariable("fileId") String fileId) throws IOException {
 

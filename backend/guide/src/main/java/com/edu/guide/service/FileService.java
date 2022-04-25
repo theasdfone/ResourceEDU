@@ -57,6 +57,12 @@ public class FileService {
         return fileUploadList;
     }
 
+    public List<FileUpload> getSearchList(String search, User user) {
+        List<FileUpload> fileUploadList = fileUploadDao.getSearchList(search, user);
+
+        return fileUploadList;
+    }
+
     public FileUpload getFileById(String fileId) {
         return fileUploadDao.getFileById(fileId);
     }

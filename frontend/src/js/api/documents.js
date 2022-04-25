@@ -19,6 +19,27 @@ const documents = {
         });
     },
 
+    getSearchList(search) {
+        return new Promise((resolve, reject) => {
+            const requestBody = {
+                method: "GET",
+                headers: Login.authHeader(),
+            };
+
+            const params = new URLSearchParams({
+                search: search,
+            });
+
+            fetch("/file/getSearchList/" + Login.getCurrentUser().id + "?" + params, requestBody)
+            .then((res) => {
+                if(res.ok) resolve(res.json());
+                else resolve("Network Error")
+            }).catch((error) => {
+                reject(error);
+            });
+        });
+    },
+
     getList() {
         return new Promise((resolve, reject) => {
             const requestBody = {

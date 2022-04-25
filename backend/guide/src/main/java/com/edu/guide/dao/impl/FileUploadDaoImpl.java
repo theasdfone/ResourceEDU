@@ -36,6 +36,13 @@ public class FileUploadDaoImpl implements FileUploadDao {
     }
 
     @Override
+    public List<FileUpload> getSearchList(String  search, User user) {
+        return em.createQuery("SELECT f FROM FileUpload f WHERE f.name LIKE CONCAT('%',:name,'%') AND f.user = :user", FileUpload.class)
+                .setParameter("name", search)
+                .setParameter("user", user).getResultList();
+    }
+
+    @Override
     public FileUpload getFileById(String fileId) {
         FileUpload fileUpload = em.find(FileUpload.class, fileId);
 

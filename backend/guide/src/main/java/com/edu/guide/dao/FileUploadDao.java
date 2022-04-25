@@ -12,5 +12,7 @@ public interface FileUploadDao {
 
     List<FileUpload> getFiles(User user);
 
+    List<FileUpload> getSearchList(String search, User user);
+
     FileUpload getFileById(String fileId);
 }
