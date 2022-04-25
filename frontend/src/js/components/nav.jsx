@@ -12,7 +12,7 @@ export default class Nav extends React.Component {
 
     renderNavMenu() {
         return (
-            <ul className="navbar-nav flex-row ml-md-auto nav-menu-container">
+            <ul className="navbar-nav ml-md-auto nav-menu-container">
                 {this.props.user 
                     ?   <li className="nav-item">
                             <span className="navbar-text dashboard-username">Hello {this.props.user}</span>
@@ -26,7 +26,6 @@ export default class Nav extends React.Component {
                                 <a className="dropdown-item" href="/">Home</a>
                                 <a className="dropdown-item" href="/dashboard">Dashboard</a>
                                 <a className="dropdown-item" href="/dashboard">Profile</a>
-                                <a className="dropdown-item" href="/about">About this project</a>
                                 <a className="dropdown-item" onClick={LoginStore.logout} href='/'>Logout</a>
                             </div>
                         </li>
@@ -36,9 +35,6 @@ export default class Nav extends React.Component {
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="/login">Login</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="/about">About this project</a>
                             </li>
                         </>
                 }

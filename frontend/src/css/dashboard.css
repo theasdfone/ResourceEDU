@@ -31,6 +31,10 @@
   bottom: 0;
 }
 
+.footer-list {
+  margin-left: 20px;
+}
+
 .resource-doc {
   height: 150px;
   width: 750px;

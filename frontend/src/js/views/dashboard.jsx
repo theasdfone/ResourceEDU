@@ -138,7 +138,6 @@ export default class LoginHome extends React.Component {
         )
     }
 
-    //TODO: Implement search by name, file type
     renderSearchBar() {
         return(
             <div className="dashboard-searchbar-container">
@@ -165,7 +164,6 @@ export default class LoginHome extends React.Component {
                                     <img className="dropdown-toggle" type="button" data-toggle="dropdown" src={plus} alt="plus" />
                                     <div className="dropdown-menu">
                                         <div className="dropdown-item">Select Files</div>
-                                        <div className="dropdown-item">Select All</div>
                                         <input style={{display: 'none'}} ref={this.fileRef} accept=".pdf, .png, .jpg, .mp3, .mp4, .xls, .doc,.docx" type="file" onChange={this.uploadFileHandler}/>
                                         <div className="dropdown-item" onClick={this.fileClickHandler}>Add File</div>
                                     </div>

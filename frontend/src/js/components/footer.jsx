@@ -4,7 +4,7 @@ export default class Footer extends React.Component {
     render() {
         return (
             <footer className="bg-dark text-light footer">
-                <p style={{marginLeft:"20px"}}>Built with Bootstrap 4.6</p>
+                <a className="text-reset text-decoration-none footer-list" href="/about">About this project</a>
             </footer>
         )
     }
