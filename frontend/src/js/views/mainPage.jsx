@@ -3,7 +3,7 @@ import React from "react";
 import Nav from "../components/nav.jsx"
 import Footer from "../components/footer.jsx"
 
-import LoginStore from "../api/login";
+import AdminStore from "../api/user";
 import '../../css/mainpage.css';
 
 import dashboard from "../../static/dashboard.png";
@@ -11,7 +11,7 @@ import video from "../../static/test.mp4";
 
 export default class MainPage extends React.Component {
   renderNav() {
-    const user = LoginStore.getCurrentUser()?.username;
+    const user = AdminStore.getCurrentUser()?.username;
 
     return(
         <Nav

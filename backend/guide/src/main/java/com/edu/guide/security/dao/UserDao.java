@@ -9,5 +9,7 @@ public interface UserDao {
 
     User findUsername(String username);
 
-    void delete(Long id);
+    String updateUser(User user);
+
+    String deleteUser(User user);
 }

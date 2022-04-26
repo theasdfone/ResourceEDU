@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types"
 
-import LoginStore from "../api/login";
+import AdminStore from "../api/user";
 import gear from "../../static/icons/gear.svg"
 export default class Nav extends React.Component {
     static propTypes;
@@ -25,8 +25,8 @@ export default class Nav extends React.Component {
                             <div className="dropdown-menu dropdown-menu-right">
                                 <a className="dropdown-item" href="/">Home</a>
                                 <a className="dropdown-item" href="/dashboard">Dashboard</a>
-                                <a className="dropdown-item" href="/dashboard">Profile</a>
-                                <a className="dropdown-item" onClick={LoginStore.logout} href='/'>Logout</a>
+                                <a className="dropdown-item" href="/profile">Profile</a>
+                                <a className="dropdown-item" onClick={AdminStore.logout} href='/'>Logout</a>
                             </div>
                         </li>
                     :   <>

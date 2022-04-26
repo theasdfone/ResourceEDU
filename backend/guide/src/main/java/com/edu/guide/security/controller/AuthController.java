@@ -52,4 +52,32 @@ public class AuthController {
 
         return ResponseEntity.ok(new Jwt(userDetails.getId(),jwtToken, userDetails.getUsername()));
     }
+
+    @PostMapping("/changepassword/{userId}")
+    public ResponseEntity<?> changePassword(@PathVariable("userId") Long userId, @RequestBody String password) {
+        User user = userService.findByID(userId);
+
+        if(user == null || user.getId() == null) {
+            return ResponseEntity.ok().body("User not found");
+        }
+
+        user.setPassword(encoder.encode(password));
+
+        String updateUser = userService.updateUser(user);
+
+        return ResponseEntity.ok(updateUser);
+    }
+
+    @PostMapping("/deleteuser/{userId}")
+    public ResponseEntity<?> deleteUser(@PathVariable("userId") Long userId) {
+        User user = userService.findByID(userId);
+
+        if(user == null || user.getId() == null) {
+            return ResponseEntity.ok().body("User not found");
+        }
+
+        String deleteUser = userService.deleteUser(user);
+
+        return ResponseEntity.ok(deleteUser);
+    }
 }

@@ -5,7 +5,7 @@ import "../../css/register.css"
 import Nav from "../components/nav.jsx"
 import Footer from "../components/footer.jsx"
 
-import RegisterStore from "../api/register";
+import AdminStore from "../api/user";
 
 export default class Register extends React.Component {
     constructor(props) {
@@ -50,7 +50,7 @@ export default class Register extends React.Component {
             && (username, password, confirm)
             && (password.length >= 8)
             && (this.usernameCheck(username))) {
-            await RegisterStore.registerNewUser(registerDetails);
+            await AdminStore.registerUser(registerDetails);
         } else {
             this.setState({
                 registerfail: true

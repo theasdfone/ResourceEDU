@@ -30,7 +30,12 @@ public class UserService{
     }
 
     @Transactional
-    public void delete(Long id) {
-        userDao.delete(id);
+    public String updateUser(User user) {
+        return userDao.updateUser(user);
+    }
+
+    @Transactional
+    public String deleteUser(User user) {
+        return userDao.deleteUser(user);
     }
 }

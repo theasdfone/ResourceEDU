@@ -1,0 +1,4 @@
+.sharelist-container {
+    min-height: calc(100vh - 145px);
+    margin-top: 30px;
+  }

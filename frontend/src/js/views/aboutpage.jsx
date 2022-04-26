@@ -3,14 +3,14 @@ import React from "react";
 import Nav from "../components/nav.jsx"
 import Footer from "../components/footer.jsx"
 
-import LoginStore from "../api/login";
+import AdminStore from "../api/user";
 import '../../css/aboutpage.css';
 
 import storage from "../../static/storage.png"
 
 export default class AboutPage extends React.Component {
     renderNav() {
-        const user = LoginStore.getCurrentUser()?.username;
+        const user = AdminStore.getCurrentUser()?.username;
 
         return(
             <Nav

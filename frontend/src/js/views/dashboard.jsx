@@ -3,7 +3,7 @@ import React from "react";
 import Nav from "../components/nav.jsx"
 import Footer from "../components/footer.jsx"
 
-import LoginStore from "../api/login";
+import AdminStore from "../api/user";
 import DocumentStore from "../api/documents";
 import '../../css/dashboard.css';
 
@@ -129,7 +129,7 @@ export default class LoginHome extends React.Component {
     }
 
     renderNav() {
-        const user = LoginStore.getCurrentUser().username;
+        const user = AdminStore.getCurrentUser().username;
 
         return(
             <Nav
@@ -195,6 +195,34 @@ export default class LoginHome extends React.Component {
         )
     }
 
+    renderPublicResource() {
+        return(
+            <div>
+                <h3>Curated Resources</h3>
+                <div className="d-flex row" id="dashboard-link-color">
+                    <a href="/share" className="col-sm-4 justify-content-center align-items-center">
+                        <img src={lifestyle} alt="lifestyle" className="dashboard-images"/>
+                        <div className="dashboard-text-container">
+                            <h3 className="dashboard-text">Life at UW</h3>
+                        </div>
+                    </a>
+                    <a href="/share" className="col-sm-4 justify-content-center align-items-center">
+                        <img src={learn} alt="lifestyle" className="dashboard-images" />
+                        <div className="dashboard-text-container">
+                            <h3 className="dashboard-text">Academics</h3>
+                        </div>
+                    </a>
+                    <a href="/share" className="col-sm-4 justify-content-center align-items-center">
+                        <img src={coop} alt="lifestyle" className="dashboard-images" />
+                        <div className="dashboard-text-container">
+                            <h3 className="dashboard-text">Co-ops</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        )
+    }
+
     renderFooter() {
         return (
             <Footer />
@@ -212,27 +240,7 @@ export default class LoginHome extends React.Component {
                     <div className="container">
                         {this.renderSearchBar()}
                         {this.renderStorageLinks()}
-                        <h3>Curated Resources</h3>
-                        <div className="d-flex row" id="dashboard-link-color">
-                            <a href="/" className="col-sm-4 justify-content-center align-items-center">
-                                <img src={lifestyle} alt="lifestyle" className="dashboard-images"/>
-                                <div className="dashboard-text-container">
-                                    <h3 className="dashboard-text">Life at UW</h3>
-                                </div>
-                            </a>
-                            <a href="/" className="col-sm-4 justify-content-center align-items-center">
-                                <img src={learn} alt="lifestyle" className="dashboard-images" />
-                                <div className="dashboard-text-container">
-                                    <h3 className="dashboard-text">Academics</h3>
-                                </div>
-                            </a>
-                            <a href="/" className="col-sm-4 justify-content-center align-items-center">
-                                <img src={coop} alt="lifestyle" className="dashboard-images" />
-                                <div className="dashboard-text-container">
-                                    <h3 className="dashboard-text">Co-ops</h3>
-                                </div>
-                            </a>
-                        </div>
+                        {this.renderPublicResource()}
                         <br/>
                     </div>
                 </div>

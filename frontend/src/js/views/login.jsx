@@ -5,7 +5,7 @@ import Footer from "../components/footer.jsx"
 
 import "../../css/login.css"
 
-import LoginStore from "../api/login";
+import AdminStore from "../api/user";
 
 export default class Login extends React.Component {
     constructor(props) {
@@ -41,9 +41,9 @@ export default class Login extends React.Component {
             password: password
         }
 
-        await LoginStore.loginUser(loginDetails);
+        await AdminStore.loginUser(loginDetails);
 
-        const user = LoginStore.getCurrentUser();
+        const user = AdminStore.getCurrentUser();
 
         if(!user) {
             this.setState({

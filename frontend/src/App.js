@@ -5,8 +5,10 @@ import Login from './js/views/login.jsx';
 import Dashboard from './js/views/dashboard';
 import Register from './js/views/register.jsx';
 import AboutPage from './js/views/aboutpage.jsx';
+import ShareList from './js/views/sharelist.jsx';
+import Profile from './js/views/profile.jsx';
 
-import LoginStore from "./js/api/login"
+import AdminStore from "./js/api/user"
 
 export default function App() {
     const AuthenticateUser = ({user, redirect = '/login', children}) => {
@@ -30,14 +32,26 @@ export default function App() {
           <Route path="/about" element={<AboutPage/>} />
           <Route path="/register" element={<Register/>} />
           <Route path="/login" element={
-              <IsLoggedIn user={LoginStore.getCurrentUser()}>
+              <IsLoggedIn user={AdminStore.getCurrentUser()}>
                 <Login/>
               </IsLoggedIn>
             } 
           />
           <Route path="/dashboard" element={
-                <AuthenticateUser user={LoginStore.getCurrentUser()}>
+                <AuthenticateUser user={AdminStore.getCurrentUser()}>
                     <Dashboard/>
+                </AuthenticateUser>
+            } 
+          />
+          <Route path="/share" element={
+                <AuthenticateUser user={AdminStore.getCurrentUser()}>
+                    <ShareList/>
+                </AuthenticateUser>
+            } 
+          />
+          <Route path="/profile" element={
+                <AuthenticateUser user={AdminStore.getCurrentUser()}>
+                    <Profile/>
                 </AuthenticateUser>
             } 
           />
