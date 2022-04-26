@@ -37,15 +37,21 @@ export default class Profile extends React.Component {
             password: oldPassword
         }
 
-        if(password === confirm 
-            && (oldPassword, password, confirm)
-            && (password.length >= 8)) {
-            await AdminStore.changePassword(password);
-        } else {
+        await AdminStore.loginUser(testUser).then(() => {
+            if(password === confirm 
+                && (password, confirm)
+                && (password.length >= 8)) {
+                AdminStore.changePassword(password);
+            } else {
+                this.setState({
+                    error: true
+                });
+            }
+        }).catch(() => {
             this.setState({
                 error: true
-            })
-        }
+            });
+        });
     }
 
     handleEnterEvent = (event) => {

@@ -41,15 +41,16 @@ export default class Login extends React.Component {
             password: password
         }
 
-        await AdminStore.loginUser(loginDetails);
-
-        const user = AdminStore.getCurrentUser();
-
-        if(!user) {
+        await AdminStore.loginUser(loginDetails).then((res) => {
+            if(res.token) {
+                localStorage.setItem("user", JSON.stringify(res));
+                window.location.replace("/dashboard");
+            }
+        }).catch(() => {
             this.setState({
                 loginfailed: true
-            });
-        }
+            }); 
+        });
     }
 
     renderNav() {
