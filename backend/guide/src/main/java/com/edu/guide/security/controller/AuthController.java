@@ -1,8 +1,10 @@
 package com.edu.guide.security.controller;
+import com.edu.guide.model.FileUpload;
 import com.edu.guide.model.Jwt;
 import com.edu.guide.model.User;
 import com.edu.guide.security.service.UserDetailsImpl;
 import com.edu.guide.security.service.UserService;
+import com.edu.guide.service.FileService;
 import com.edu.guide.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.List;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class AuthController {
@@ -21,6 +26,9 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private FileService fileService;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -69,11 +77,17 @@ public class AuthController {
     }
 
     @PostMapping("/deleteuser/{userId}")
-    public ResponseEntity<?> deleteUser(@PathVariable("userId") Long userId) {
+    public ResponseEntity<?> deleteUser(@PathVariable("userId") Long userId) throws IOException {
         User user = userService.findByID(userId);
 
         if(user == null || user.getId() == null) {
             return ResponseEntity.ok().body("User not found");
+        }
+
+        List<FileUpload> deleteFiles = fileService.getFiles(user);
+
+        for(FileUpload file : deleteFiles) {
+            fileService.deleteFile(file);
         }
 
         String deleteUser = userService.deleteUser(user);

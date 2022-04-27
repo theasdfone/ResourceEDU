@@ -88,10 +88,10 @@ export default class Profile extends React.Component {
                                     <td className="profile-personal-header">Username:</td>
                                     <td>{AdminStore.getCurrentUser().username}</td>
                                 </tr>
-                                <tr>
+                                {/* <tr>
                                     <td className="profile-personal-header">Email:</td>
                                     <td></td>
-                                </tr>
+                                </tr> */}
                             </tbody>
                         </table>
                     </div>
