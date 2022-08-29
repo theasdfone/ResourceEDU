@@ -198,12 +198,12 @@ export default class LoginHome extends React.Component {
     renderPublicResource() {
         return(
             <div>
-                <h3>Curated Resources</h3>
+                <h3>More Resources</h3>
                 <div className="d-flex row" id="dashboard-link-color">
                     <a href="/share" className="col-sm-4 justify-content-center align-items-center">
                         <img src={lifestyle} alt="lifestyle" className="dashboard-images"/>
                         <div className="dashboard-text-container">
-                            <h3 className="dashboard-text">Life at UW</h3>
+                            <h3 className="dashboard-text">University</h3>
                         </div>
                     </a>
                     <a href="/share" className="col-sm-4 justify-content-center align-items-center">
