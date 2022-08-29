@@ -14,8 +14,15 @@
 }
 
 .nav-center-logo {
-  margin-bottom: 4px;
-  margin-left: 40px;
+  margin-bottom: 2px;
+  margin-left: 20px;
+}
+
+.nav-main-logo {
+  height: 32px;
+  width: 32px;
+  margin-right: 7px;
+  margin-bottom:7px;
 }
 
 .nav-settings-icon {

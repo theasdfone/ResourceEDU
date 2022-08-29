@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types"
 
 import AdminStore from "../api/user";
+import logo from "../../static/logo.png"
 import gear from "../../static/icons/gear.svg"
 export default class Nav extends React.Component {
     static propTypes;
@@ -46,7 +47,10 @@ export default class Nav extends React.Component {
         return (
             <nav className="navbar navbar-expand bg-dark navbar-dark navbar-container">
                 <div className="collapse navbar-collapse" id="collapsibleNavbar">
-                    <a href="/" className="navbar-brand nav-center-logo">ResourceEDU</a>
+                    <div className="nav-center-logo">
+                        <img className="nav-main-logo" src={logo} alt="logo" />
+                        <a href="/" className="navbar-brand">ResourceEDU</a>
+                    </div>
                     {this.renderNavMenu()}
                 </div>
             </nav>
