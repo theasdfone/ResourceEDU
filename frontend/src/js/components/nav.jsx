@@ -6,10 +6,6 @@ import logo from "../../static/logo.png"
 import gear from "../../static/icons/gear.svg"
 export default class Nav extends React.Component {
     static propTypes;
-    
-    constructor(props) {
-        super(props);
-    }
 
     renderNavMenu() {
         return (
@@ -48,7 +44,9 @@ export default class Nav extends React.Component {
             <nav className="navbar navbar-expand bg-dark navbar-dark navbar-container">
                 <div className="collapse navbar-collapse" id="collapsibleNavbar">
                     <div className="nav-center-logo">
-                        <img className="nav-main-logo" src={logo} alt="logo" />
+                        <a href="/">
+                            <img className="nav-main-logo navbar-brand" src={logo} alt="logo" />
+                        </a>
                         <a href="/" className="navbar-brand">ResourceEDU</a>
                     </div>
                     {this.renderNavMenu()}

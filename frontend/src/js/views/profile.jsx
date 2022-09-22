@@ -15,7 +15,7 @@ export default class Profile extends React.Component {
             oldPassword: "",
             password: "",
             confirm: "",
-            page: "Personal", 
+            page: "", 
             error: false
         };
     }
@@ -78,25 +78,6 @@ export default class Profile extends React.Component {
         let mainBlock = {};
 
         switch (this.state.page) {
-            case "Personal":
-                mainBlock = (
-                    <div>
-                        <h3>Personal Info</h3>
-                        <table className="table profile-personal-info">
-                            <tbody>
-                                <tr>
-                                    <td className="profile-personal-header">Username:</td>
-                                    <td>{AdminStore.getCurrentUser().username}</td>
-                                </tr>
-                                {/* <tr>
-                                    <td className="profile-personal-header">Email:</td>
-                                    <td></td>
-                                </tr> */}
-                            </tbody>
-                        </table>
-                    </div>
-                )
-                break;
             case "Security":
                 mainBlock = (
                     <div className="profile-security-info">
@@ -133,6 +114,25 @@ export default class Profile extends React.Component {
                     <div>
                         <h3>Delete</h3>
                         <button onClick={this.deleteUser} className="profile-delete">Delete Account</button>
+                    </div>
+                )
+                break;
+            default:
+                mainBlock = (
+                    <div>
+                        <h3>Personal Info</h3>
+                        <table className="table profile-personal-info">
+                            <tbody>
+                                <tr>
+                                    <td className="profile-personal-header">Username:</td>
+                                    <td>{AdminStore.getCurrentUser().username}</td>
+                                </tr>
+                                {/* <tr>
+                                    <td className="profile-personal-header">Email:</td>
+                                    <td></td>
+                                </tr> */}
+                            </tbody>
+                        </table>
                     </div>
                 )
                 break;
