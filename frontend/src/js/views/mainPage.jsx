@@ -18,7 +18,7 @@ export default class MainPage extends React.Component {
             user={user}
         />
     )
-}
+  }
 
   renderFooter() {
       return (

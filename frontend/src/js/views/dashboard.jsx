@@ -20,8 +20,10 @@ export default class LoginHome extends React.Component {
         super(props);
 
         this.state = {
+            fileList: [],
             data: [],
-            search: ""
+            search: "",
+            isSelect: false
         };
 
         this.fileRef = React.createRef();
@@ -45,7 +47,7 @@ export default class LoginHome extends React.Component {
             fileSize: this.formatBytes(event.target.files[0].size),
         }
 
-        const fileData = new FormData();
+        let fileData = new FormData();
 
         fileData.append("file", event.target.files[0]);
         fileData.append("jsonData", new Blob([JSON.stringify(displayFile)], {type: "application/json"}));
@@ -100,9 +102,36 @@ export default class LoginHome extends React.Component {
             })
         });
     }
+
+    fileListHandler = (event) => {
+        let fileData = new FormData();
+        let files = [];
+
+        let displayFile = {
+            name: event.target.files[0].name,
+            date: this.getCurrentDate(),
+            fileType: event.target.files[0].name.split('.').pop(),
+            fileSize: this.formatBytes(event.target.files[0].size),
+        }
+
+        fileData.append("file", event.target.files[0]);
+        fileData.append("jsonData", new Blob([JSON.stringify(displayFile)], {type: "application/json"}));
+
+        files.push(fileData);
+
+        this.setState({
+            fileList: files
+        });
+    }
     
     fileClickHandler = () => {
         this.fileRef.current.click();
+    }
+
+    fileSelectionHandler = () => {
+        this.setState({
+            isSelect: !this.state.isSelect
+        })
     }
 
     getCurrentDate() {
@@ -143,10 +172,30 @@ export default class LoginHome extends React.Component {
             <div className="dashboard-searchbar-container">
                 <input className="dashboard-searchbar" type="text" placeholder="Search File" onChange={this.searchHandler}/>
                 <div className="dashboard-search-icon" type="button">
-                    <img src={search} type="submit"/>
+                    <img src={search} type="submit" alt=""/>
                 </div>
             </div>
         )
+    }
+
+    renderSelect(file) {
+        if(this.state.isSelect) {
+            return(
+                // <input style={{display: 'none'}} ref={this.fileList} type="checkbox" onChange={this.fileListHandler}/>
+                <div></div>
+            )
+        } else {
+            return(
+                <div>
+                    <img className="dropdown-toggle" type="button" data-toggle="dropdown" src={gear} alt="gear" />
+                    <div className="dropdown-menu">
+                        <div className="dropdown-item" onClick={() => this.shareClickHandler(file.id)}>Share</div>
+                        <div className="dropdown-item" onClick={() => this.downloadClickHandler(file.id, file.name, file.fileType)}>Download</div>
+                        <div className="dropdown-item" onClick={() => this.deleteClickHandler(file.id)}>Delete</div>
+                    </div>
+                </div>
+            )
+        }
     }
 
     renderStorageLinks() {
@@ -163,9 +212,9 @@ export default class LoginHome extends React.Component {
                                 <th className="col-1" scope="col">
                                     <img className="dropdown-toggle" type="button" data-toggle="dropdown" src={plus} alt="plus" />
                                     <div className="dropdown-menu">
-                                        <div className="dropdown-item">Select Files</div>
-                                        <input style={{display: 'none'}} ref={this.fileRef} accept=".pdf, .png, .jpg, .mp3, .mp4, .xls, .doc,.docx" type="file" onChange={this.uploadFileHandler}/>
+                                        <div className="dropdown-item" onClick={this.fileSelectionHandler}>Select Files</div>
                                         <div className="dropdown-item" onClick={this.fileClickHandler}>Add File</div>
+                                        <input style={{display: 'none'}} ref={this.fileRef} accept=".pdf, .png, .jpg, .mp3, .mp4, .xls, .doc,.docx" type="file" onChange={this.uploadFileHandler}/>
                                     </div>
                                 </th>
                             </tr>
@@ -177,14 +226,7 @@ export default class LoginHome extends React.Component {
                                         <td className="col-3">{file.date}</td>
                                         <td className="col-3">{file.fileType}</td>
                                         <td className="col-2">{file.fileSize}</td>
-                                        <td> 
-                                            <img className="dropdown-toggle" type="button" data-toggle="dropdown" src={gear} alt="gear" />
-                                            <div className="dropdown-menu">
-                                                <div className="dropdown-item" onClick={() => this.shareClickHandler(file.id)}>Share</div>
-                                                <div className="dropdown-item" onClick={() => this.downloadClickHandler(file.id, file.name, file.fileType)}>Download</div>
-                                                <div className="dropdown-item" onClick={() => this.deleteClickHandler(file.id)}>Delete</div>
-                                            </div>
-                                        </td>
+                                        <td>{this.renderSelect(file)}</td>
                                     </tr>
                                 ))
                             }
