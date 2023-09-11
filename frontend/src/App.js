@@ -1,6 +1,6 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
 
-import MainPage from './Js/views/mainpage.jsx';
+import MainPage from '../src/js/views/mainpage.jsx';
 import Login from './js/views/login.jsx';
 import Dashboard from './js/views/dashboard';
 import Register from './js/views/register.jsx';
