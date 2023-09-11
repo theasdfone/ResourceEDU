@@ -19,7 +19,7 @@ export default function App() {
             return <Navigate to={redirect} replace />;
           }
 
-          return children
+          return children;
         }
 
         return <Navigate to={redirect} replace />;
