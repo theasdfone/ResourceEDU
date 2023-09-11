@@ -1,14 +1,17 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
 
-// import MainPage from './js/views/mainpage.jsx';
-// import Login from './js/views/login.jsx';
-// import Dashboard from './js/views/dashboard';
-// import Register from './js/views/register.jsx';
-// import AboutPage from './js/views/aboutpage.jsx';
-// import ShareList from './js/views/sharelist.jsx';
-// import Profile from './js/views/profile.jsx';
+import test1 from './lowercase/test1.jsx';
+import test2 from './Uppercase/test2.jsx';
 
-// import AdminStore from "./js/api/user";
+import MainPage from './js/views/mainpage.jsx';
+import Login from './js/views/login.jsx';
+import Dashboard from './js/views/dashboard';
+import Register from './js/views/register.jsx';
+import AboutPage from './js/views/aboutpage.jsx';
+import ShareList from './js/views/sharelist.jsx';
+import Profile from './js/views/profile.jsx';
+
+import AdminStore from "./js/api/user";
 
 export default function App() {
     const AuthenticateUser = ({user, redirect = '/login', children}) => {
@@ -34,35 +37,34 @@ export default function App() {
     };
 
     return (
-        // <Routes>
-        //   <Route path="/" element={<MainPage/>} />
-        //   <Route path="/about" element={<AboutPage/>} />
-        //   <Route path="/register" element={<Register/>} />
-        //   <Route path="/login" element={
-        //       <IsLoggedIn user={AdminStore.getCurrentUser()}>
-        //         <Login/>
-        //       </IsLoggedIn>
-        //     } 
-        //   />
-        //   <Route path="/dashboard" element={
-        //         <AuthenticateUser user={AdminStore.getCurrentUser()}>
-        //             <Dashboard/>
-        //         </AuthenticateUser>
-        //     } 
-        //   />
-        //   <Route path="/share" element={
-        //         <AuthenticateUser user={AdminStore.getCurrentUser()}>
-        //             <ShareList/>
-        //         </AuthenticateUser>
-        //     } 
-        //   />
-        //   <Route path="/profile" element={
-        //         <AuthenticateUser user={AdminStore.getCurrentUser()}>
-        //             <Profile/>
-        //         </AuthenticateUser>
-        //     } 
-        //   />
-        // </Routes>
-        <div>hello!</div>
+        <Routes>
+          <Route path="/" element={<MainPage/>} />
+          <Route path="/about" element={<AboutPage/>} />
+          <Route path="/register" element={<Register/>} />
+          <Route path="/login" element={
+              <IsLoggedIn user={AdminStore.getCurrentUser()}>
+                <Login/>
+              </IsLoggedIn>
+            } 
+          />
+          <Route path="/dashboard" element={
+                <AuthenticateUser user={AdminStore.getCurrentUser()}>
+                    <Dashboard/>
+                </AuthenticateUser>
+            } 
+          />
+          <Route path="/share" element={
+                <AuthenticateUser user={AdminStore.getCurrentUser()}>
+                    <ShareList/>
+                </AuthenticateUser>
+            } 
+          />
+          <Route path="/profile" element={
+                <AuthenticateUser user={AdminStore.getCurrentUser()}>
+                    <Profile/>
+                </AuthenticateUser>
+            } 
+          />
+        </Routes>
     )
 }
