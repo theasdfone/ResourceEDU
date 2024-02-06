@@ -1,0 +1,30 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_USER: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
+      MYSQL_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+      MYSQL_DATABASE: edu
+
+  spring-boot-app:
+      build:
+        context: ./backend/guide/
+        dockerfile: Dockerfile
+      ports:
+        - "8080:8080"
+      depends_on:
+        - mysql
+      environment:
+        SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/edu
+        SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
+        SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+
+  react-app:
+      build:
+        context: ./frontend
+        dockerfile: Dockerfile
+      ports:
+        - "3000:80"
