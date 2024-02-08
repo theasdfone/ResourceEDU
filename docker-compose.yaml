@@ -14,7 +14,7 @@ services:
         context: ./backend/guide/
         dockerfile: Dockerfile
       ports:
-        - "8080:8080"
+        - "4000:4000"
       depends_on:
         - mysql
       environment:
@@ -27,4 +27,6 @@ services:
         context: ./frontend
         dockerfile: Dockerfile
       ports:
-        - "3000:80"
+        - "3000:3000"
+      depends_on:
+        - spring-boot-app
