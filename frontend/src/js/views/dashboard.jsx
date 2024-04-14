@@ -39,9 +39,10 @@ export default class LoginHome extends React.Component {
 
     uploadFileHandler = async (event) => {
         let data = this.state.data;
+        let fileName = event.target.files[0].name;
 
         let displayFile = {
-            name: event.target.files[0].name,
+            name: fileName,
             date: this.getCurrentDate(),
             fileType: event.target.files[0].name.split('.').pop(),
             fileSize: this.formatBytes(event.target.files[0].size),
@@ -52,7 +53,8 @@ export default class LoginHome extends React.Component {
         fileData.append("file", event.target.files[0]);
         fileData.append("jsonData", new Blob([JSON.stringify(displayFile)], {type: "application/json"}));
 
-        await DocumentStore.upload(fileData).then((res) => {
+        const presignedUrl = await DocumentStore.getPresignedUrl(fileName);
+        await DocumentStore.upload(presignedUrl, fileData).then((res) => {
             data.push(res);
 
             this.setState({

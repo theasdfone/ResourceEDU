@@ -38,6 +38,21 @@ public class FileService {
     }
 
     @Transactional
+    public FileUpload s3Upload(MultipartFile multipartFile, FileUpload fileUpload) throws IOException {
+        File path = new File("C:\\ResourceEDU-File-Storage\\" + multipartFile.getOriginalFilename());
+        path.createNewFile();
+
+        FileOutputStream output = new FileOutputStream(path);
+
+        output.write(multipartFile.getBytes());
+        output.close();
+
+        fileUpload.setFilePath(path.getPath());
+
+        return fileUploadDao.localUpload(fileUpload);
+    }
+
+    @Transactional
     public String deleteFile(FileUpload fileUpload) throws IOException{
 
         Path fileDelete = Paths.get(fileUpload.getFilePath());

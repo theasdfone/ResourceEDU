@@ -35,9 +35,7 @@ public class FileController {
         }
 
         fileUpload.setUser(user);
-
-        //TODO: Need to implement necessary aws s3 storage api
-        FileUpload storedFile = fileService.localUpload(multipartFile, fileUpload);
+        FileUpload storedFile = fileService.s3Upload(multipartFile, fileUpload);
 
         return ResponseEntity.ok(storedFile);
     }

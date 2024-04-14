@@ -1,17 +1,38 @@
 import User from "./user";
 
 const documents = {
-    upload(fileData) {
+    getPresignedUrl(fileName) {
+        return new Promise((resolve, reject) => {
+            const s3RequestBody = {
+                method: "GET",
+                headers: {'Content-Type':'application/json'}
+            };
+
+            fetch("https://3o1ysxo0g3.execute-api.us-west-2.amazonaws.com/development/get?key=" + fileName, s3RequestBody)
+            .then((res) => {
+                if(res.ok) {
+                    console.log(res);
+                    return res;
+                } else {
+                    resolve("Network Error");
+                }
+            }).catch((error) => {
+                reject(error);
+            });
+        });
+    },
+
+    upload(presignedUrl, fileData) {
         return new Promise((resolve, reject) => {
             const requestBody = {
                 method: "POST",
                 headers: User.authHeader(),
-                body: fileData
+                body: {...fileData, url: presignedUrl}
             };
 
             fetch("/file/upload/" + User.getCurrentUser().id, requestBody)
-            .then((res) => {
-                if(res.ok) resolve(res.json());
+            .then((response) => {
+                if(response.ok) resolve(response.json());
                 else resolve("Network Error")
             }).catch((error) => {
                 reject(error);
