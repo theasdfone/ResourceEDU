@@ -16,7 +16,7 @@ public class FileUploadDaoImpl implements FileUploadDao {
     private EntityManager em;
 
     @Override
-    public FileUpload localUpload(FileUpload fileUpload) {
+    public FileUpload uploadFileMetaData(FileUpload fileUpload) {
         em.persist(fileUpload);
 
         return fileUpload;

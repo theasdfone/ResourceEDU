@@ -5,14 +5,8 @@ import com.edu.guide.model.User;
 import com.edu.guide.security.service.UserService;
 import com.edu.guide.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,7 +21,8 @@ public class FileController {
     private FileService fileService;
 
     @PostMapping("/upload/{userId}")
-    public ResponseEntity<?> uploadFile(@RequestPart("file") MultipartFile multipartFile, @RequestPart("jsonData") FileUpload fileUpload, @PathVariable("userId") Long userId) throws IOException{
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public ResponseEntity<?> uploadFile(@RequestBody FileUpload fileUpload, @PathVariable("userId") Long userId) throws IOException{
         User user = userService.findByID(userId);
 
         if(user == null || user.getId() == null) {
@@ -35,12 +30,13 @@ public class FileController {
         }
 
         fileUpload.setUser(user);
-        FileUpload storedFile = fileService.s3Upload(multipartFile, fileUpload);
+        FileUpload storedFile = fileService.s3Upload(fileUpload);
 
         return ResponseEntity.ok(storedFile);
     }
 
     @GetMapping("/getList/{userId}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<?> getFileList(@PathVariable("userId") Long userId) {
         User user = userService.findByID(userId);
 
@@ -54,6 +50,7 @@ public class FileController {
     }
 
     @GetMapping("/getSearchList/{userId}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<?> getSearchList(@PathVariable("userId") Long userId, @RequestParam(name = "search") String search) {
         User user = userService.findByID(userId);
 
@@ -66,36 +63,15 @@ public class FileController {
         return ResponseEntity.ok(fileUploadList);
     }
 
-    @GetMapping("/download/{fileId}")
-    public ResponseEntity<?> downloadFile(@PathVariable("fileId") String fileId) throws IOException {
-
-        FileUpload fileUpload = fileService.getFileById(fileId);
-
-        if(fileUpload == null || fileUpload.getId() == null) {
-            return ResponseEntity.ok().body("File not found");
-        }
-
-        //TODO: AWS Response
-        Resource resource = new FileSystemResource(fileUpload.getFilePath());
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-        headers.add("Pragma", "no-cache");
-        headers.add("Expires", "0");
-
-        return ResponseEntity.ok().headers(headers)
-                .contentLength(resource.contentLength())
-                .contentType(MediaType.parseMediaType("application/octet-stream"))
-                .body(new InputStreamResource(resource.getInputStream()));
-    }
-
     @PostMapping("/update")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<?> updateFile() {
         //TODO: update api
         return ResponseEntity.ok("File Updated Successfully");
     }
 
     @PostMapping("/delete/{fileId}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<?> deleteFile(@PathVariable("fileId") String fileId) throws IOException{
         FileUpload fileUpload = fileService.getFileById(fileId);
 

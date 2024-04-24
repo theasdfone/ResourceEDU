@@ -6,7 +6,7 @@ import com.edu.guide.model.User;
 import java.util.List;
 
 public interface FileUploadDao {
-    FileUpload localUpload(FileUpload fileUpload);
+    FileUpload uploadFileMetaData(FileUpload fileUpload);
 
     String deleteFile(FileUpload fileUpload);
 

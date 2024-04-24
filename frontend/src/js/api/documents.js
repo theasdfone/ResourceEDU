@@ -1,18 +1,18 @@
+import { environment } from "../../environments/environment";
 import User from "./user";
 
 const documents = {
-    getPresignedUrl(fileName) {
+    getPresignedUrlUpload(fileName, operation) {
         return new Promise((resolve, reject) => {
             const s3RequestBody = {
                 method: "GET",
                 headers: {'Content-Type':'application/json'}
             };
 
-            fetch("https://3o1ysxo0g3.execute-api.us-west-2.amazonaws.com/development/get?key=" + fileName, s3RequestBody)
+            fetch(environment.awsUrl + fileName + `&operation=${operation}`, s3RequestBody)
             .then((res) => {
                 if(res.ok) {
-                    console.log(res);
-                    return res;
+                    resolve(res.text());
                 } else {
                     resolve("Network Error");
                 }
@@ -22,18 +22,30 @@ const documents = {
         });
     },
 
-    upload(presignedUrl, fileData) {
+    upload(presignedUrl, fileData, displayFile) {
         return new Promise((resolve, reject) => {
+            const s3Body = {
+                method: "PUT",
+                headers: {'Content-Type': 'multipart/form-data'},
+                body: fileData
+            }
+
             const requestBody = {
                 method: "POST",
-                headers: User.authHeader(),
-                body: {...fileData, url: presignedUrl}
+                headers: User.authHeader({"Content-Type":"application/json"}),
+                body: JSON.stringify(displayFile)
             };
 
-            fetch("/file/upload/" + User.getCurrentUser().id, requestBody)
-            .then((response) => {
-                if(response.ok) resolve(response.json());
-                else resolve("Network Error")
+            fetch(presignedUrl, s3Body).then((res) => {
+                if(res.ok) {
+                    fetch(environment.apiUrl + "/file/upload/" + User.getCurrentUser().id, requestBody)
+                    .then((response) => {
+                        if(response.ok) resolve(response.json());
+                        else resolve("Network Error");
+                    }).catch((error) => {
+                        reject(error);
+                    });
+                } else resolve("Network Error"); 
             }).catch((error) => {
                 reject(error);
             });
@@ -51,7 +63,7 @@ const documents = {
                 search: search,
             });
 
-            fetch("/file/getSearchList/" + User.getCurrentUser().id + "?" + params, requestBody)
+            fetch(environment.apiUrl + "/file/getSearchList/" + User.getCurrentUser().id + "?" + params, requestBody)
             .then((res) => {
                 if(res.ok) resolve(res.json());
                 else resolve("Network Error")
@@ -68,7 +80,7 @@ const documents = {
                 headers: User.authHeader(),
             };
 
-            fetch("/file/getList/" + User.getCurrentUser().id, requestBody)
+            fetch(environment.apiUrl + "/file/getList/" + User.getCurrentUser().id, requestBody)
             .then((res) => {
                 if(res.ok) resolve(res.json());
                 else resolve("Network Error")
@@ -78,14 +90,14 @@ const documents = {
         });
     },
 
-    download(fileId) {
+    download(presignedUrl) {
         return new Promise((resolve, reject) => {
             const requestBody = {
                 method: "GET",
-                headers: User.authHeader(),
+                headers: {'Content-Type': 'multipart/form-data'},
             };
 
-            fetch("/file/download/" + fileId, requestBody)
+            fetch(presignedUrl, requestBody)
             .then((res) => {
                 if(res.ok) resolve(res.blob());
                 else resolve("Network Error")
@@ -102,7 +114,7 @@ const documents = {
                 headers: User.authHeader(),
             };
 
-            fetch("/file/delete/" + fileId, requestBody)
+            fetch(environment.apiUrl + "/file/delete/" + fileId, requestBody)
             .then((res) => {
                 if(res.ok) resolve(res);
                 else resolve("Network Error")

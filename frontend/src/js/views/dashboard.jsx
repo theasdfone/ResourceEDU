@@ -49,16 +49,13 @@ export default class LoginHome extends React.Component {
         }
 
         let fileData = new FormData();
-
         fileData.append("file", event.target.files[0]);
-        fileData.append("jsonData", new Blob([JSON.stringify(displayFile)], {type: "application/json"}));
+        // fileData.append("jsonData", new Blob([JSON.stringify(displayFile)], {type: "application/json"}));
 
-        const presignedUrl = await DocumentStore.getPresignedUrl(fileName);
-        await DocumentStore.upload(presignedUrl, fileData).then((res) => {
-            data.push(res);
-
+        const presignedUrl = await DocumentStore.getPresignedUrlUpload(fileName, "PUT");
+        await DocumentStore.upload(presignedUrl, fileData, displayFile).then((res) => {
             this.setState({
-                data: data,
+                data: [...data, res],
             });
         });
     }
@@ -84,16 +81,16 @@ export default class LoginHome extends React.Component {
         console.log(fileId);
     }
 
-    downloadClickHandler = (fileId, fileName, fileType) => {
-        //Hacky, replace later
-        DocumentStore.download(fileId).then((blob) =>{
+    downloadClickHandler = async (fileName, fileType) => {
+        const presignedUrl = await DocumentStore.getPresignedUrlUpload(fileName, "GET");
+        await DocumentStore.download(presignedUrl).then((blob) =>{
             const link = document.createElement('a');
             const url = window.URL.createObjectURL(blob);
 
             link.href = url;
             link.download = `${fileName}.${fileType}`;
             link.click();
-        });
+        });;
     }
 
     deleteClickHandler = async (fileId) => {
@@ -192,7 +189,7 @@ export default class LoginHome extends React.Component {
                     <img className="dropdown-toggle" type="button" data-toggle="dropdown" src={gear} alt="gear" />
                     <div className="dropdown-menu">
                         <div className="dropdown-item" onClick={() => this.shareClickHandler(file.id)}>Share</div>
-                        <div className="dropdown-item" onClick={() => this.downloadClickHandler(file.id, file.name, file.fileType)}>Download</div>
+                        <div className="dropdown-item" onClick={() => this.downloadClickHandler(file.name, file.fileType)}>Download</div>
                         <div className="dropdown-item" onClick={() => this.deleteClickHandler(file.id)}>Delete</div>
                     </div>
                 </div>

@@ -1,3 +1,5 @@
+import { environment } from "../../environments/environment";
+
 const user = {
     loginUser(loginData) {
         return new Promise((resolve, reject) => {
@@ -7,7 +9,7 @@ const user = {
                 body: JSON.stringify(loginData)
             };
 
-            fetch("/signin", requestBody)
+            fetch(environment.apiUrl + "/signin", requestBody)
             .then((res) => {
                 if(res.ok) resolve(res.json());
                 else if(res.status === 401) reject("Authentication Denied");
@@ -26,7 +28,7 @@ const user = {
                 body: JSON.stringify(registrationData)
             }
     
-            fetch("/signup", requestBody)
+            fetch(environment.apiUrl + "/signup", requestBody)
             .then((res) => {
                 if(res.ok) window.location.replace("/login");
                 else if(res.status === 400) resolve("Username Taken");
@@ -44,7 +46,7 @@ const user = {
                 body: password
             }
     
-            fetch("/changepassword/" + this.getCurrentUser().id, requestBody)
+            fetch(environment.apiUrl + "/changepassword/" + this.getCurrentUser().id, requestBody)
             .then((res) => {
                 if(res.ok) window.location.replace("/login");
                 else if(res.status === 400) resolve("Network Error");
@@ -61,7 +63,7 @@ const user = {
                 headers: this.authHeader(),
             };
 
-            fetch("/deleteuser/" + this.getCurrentUser().id, requestBody)
+            fetch(environment.apiUrl + "/deleteuser/" + this.getCurrentUser().id, requestBody)
             .then((res) => {
                 if(res.ok) resolve(res);
                 else resolve("Network Error")
@@ -82,9 +84,9 @@ const user = {
         return JSON.parse(localStorage.getItem("user"));
     },
 
-    authHeader() {
+    authHeader(headers) {
         const user = this.getCurrentUser();
-        return user ? {Authorization: "Bearer " + user.token} : {};
+        return user ? {Authorization: "Bearer " + user.token, ...headers} : {};
     }
 };
 

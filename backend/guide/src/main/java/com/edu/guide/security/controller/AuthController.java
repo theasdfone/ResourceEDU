@@ -37,6 +37,7 @@ public class AuthController {
     private JwtUtils jwtUtils;
 
     @PostMapping("/signup")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<?> submitForm(@RequestBody User user) {
         if(userService.findUsername(user.getUsername()) != null) {
             return ResponseEntity.badRequest().body("Username is taken");
@@ -49,6 +50,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<?> loginForm(@RequestBody User user) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
@@ -62,6 +64,7 @@ public class AuthController {
     }
 
     @PostMapping("/changepassword/{userId}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<?> changePassword(@PathVariable("userId") Long userId, @RequestBody String password) {
         User user = userService.findByID(userId);
 
@@ -77,6 +80,7 @@ public class AuthController {
     }
 
     @PostMapping("/deleteuser/{userId}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<?> deleteUser(@PathVariable("userId") Long userId) throws IOException {
         User user = userService.findByID(userId);
 

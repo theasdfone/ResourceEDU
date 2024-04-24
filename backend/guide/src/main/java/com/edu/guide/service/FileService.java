@@ -6,14 +6,8 @@ import com.edu.guide.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 @Service
@@ -23,42 +17,12 @@ public class FileService {
     private FileUploadDao fileUploadDao;
 
     @Transactional
-    public FileUpload localUpload(MultipartFile multipartFile, FileUpload fileUpload) throws IOException {
-        File path = new File("C:\\ResourceEDU-File-Storage\\" + multipartFile.getOriginalFilename());
-        path.createNewFile();
-
-        FileOutputStream output = new FileOutputStream(path);
-
-        output.write(multipartFile.getBytes());
-        output.close();
-
-        fileUpload.setFilePath(path.getPath());
-
-        return fileUploadDao.localUpload(fileUpload);
-    }
-
-    @Transactional
-    public FileUpload s3Upload(MultipartFile multipartFile, FileUpload fileUpload) throws IOException {
-        File path = new File("C:\\ResourceEDU-File-Storage\\" + multipartFile.getOriginalFilename());
-        path.createNewFile();
-
-        FileOutputStream output = new FileOutputStream(path);
-
-        output.write(multipartFile.getBytes());
-        output.close();
-
-        fileUpload.setFilePath(path.getPath());
-
-        return fileUploadDao.localUpload(fileUpload);
+    public FileUpload s3Upload(FileUpload fileUpload) throws IOException {
+        return fileUploadDao.uploadFileMetaData(fileUpload);
     }
 
     @Transactional
     public String deleteFile(FileUpload fileUpload) throws IOException{
-
-        Path fileDelete = Paths.get(fileUpload.getFilePath());
-
-        Files.delete(fileDelete);
-
         return fileUploadDao.deleteFile(fileUpload);
     }
 

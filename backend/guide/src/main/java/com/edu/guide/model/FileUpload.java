@@ -17,9 +17,6 @@ public class FileUpload {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @Column(name = "file_path")
-    private String filePath;
-
     @Column(name = "name")
     private String name;
 
