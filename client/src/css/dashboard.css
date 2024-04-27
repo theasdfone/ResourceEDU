@@ -1,0 +1,132 @@
+#dashboard-link-color a:visited,
+#dashboard-link-color a:link,
+#dashboard-link-color a:active {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.navbar-container {
+  height: 75px;
+}
+
+.nav-menu-container {
+  margin-right: 15px;
+}
+
+.nav-center-logo {
+  margin-bottom: 2px;
+  margin-left: 20px;
+}
+
+.nav-main-logo {
+  height: 32px;
+  width: 32px;
+  margin-right: 7px;
+  margin-bottom:7px;
+}
+
+.nav-settings-icon {
+  padding-top: 10px;
+  height: 32px;
+  width: 32px;
+}
+
+.footer {
+  position: relative;
+  height: 40px;
+  width: 100%;
+  bottom: 0;
+}
+
+.footer-list {
+  margin-left: 20px;
+}
+
+.resource-doc {
+  height: 150px;
+  width: 750px;
+  background-color: orange;
+}
+
+.dashboard-images {
+  opacity: 0.5;
+  height: 300px;
+  width: 100%;
+}
+
+a:hover .dashboard-images{
+  opacity: 1;
+  -webkit-box-shadow: 0px 0px 30px -10px;
+  -moz-box-shadow: 0px 0px 30px -10px;
+  box-shadow: 0px 0px 30px -10px black;
+  transition: all .2s ease-in-out;
+  transform: scale(1.1);
+  z-index: 9999;
+}
+
+.dashboard-container {
+  min-height: calc(100vh - 145px);
+  margin-top: 30px;
+}
+
+.dashboard-text-container {
+  position: absolute;
+  left: 50%;
+  bottom: 40%;
+  transform: translate(-50%, -40%);
+  width: 150px;
+}
+
+.dashboard-searchbar-container {
+  display: flex;
+}
+
+.dashboard-searchbar {
+  height: 40px;
+  width: 475px;
+  border-radius: 5px 0 0 5px;
+}
+
+.dashboard-search-icon {
+  height: 40px;
+  width: 40px;
+  padding-top: 4px;
+  padding-left: 8px;
+  border-style: solid;
+  border-left: none;
+  border-width: 2px;
+  border-radius: 0 5px 5px 0;
+  border-color: rgb(118, 118, 118);
+  background-color: lightgrey;
+}
+
+.dashboard-file-container {
+  margin-top: 10px;
+  padding-top: 20px;
+  min-height: 300px;
+  width: 1140px;
+}
+
+.dashboard-table-container {
+  min-height: 50px;
+}
+
+.dashboard-table-container th,
+.dashboard-table-container td
+{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dashboard-text {
+  position: relative;
+  text-align: center;
+  color: white;
+  background-color: orange;
+}
+
+.dashboard-username {
+  padding-right: 10px;
+  font-size: 1rem;
+}
