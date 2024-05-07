@@ -1,0 +1,6 @@
+### infra
+*.tfvars
+*.tfvars*
+**/.terraform/*
+*.tfstate
+*.tfstate.*

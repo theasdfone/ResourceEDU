@@ -1,8 +1,8 @@
 package com.edu.guide.security.dao.impl;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.PersistenceContext;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.PersistenceContext;
 
 import com.edu.guide.model.User;
 import com.edu.guide.security.dao.UserDao;
