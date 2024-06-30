@@ -1,6 +1,6 @@
 FROM maven:3.8.1-openjdk-17 AS build
-COPY . /app
 WORKDIR /app
+COPY . /app
 RUN mvn package -DskipTests
 
 # Second stage: create a slim image
