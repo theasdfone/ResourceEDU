@@ -1,0 +1,38 @@
+version: '3'
+services:
+  mysqldb:
+    build: 
+      context: ./db
+      dockerfile: Dockerfile
+    container_name: mysqldb
+    restart: always
+    ports:
+      - "3366:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: Root!!!!
+      MYSQL_DATABASE: edu
+    networks:
+      - springapimysql-net
+    volumes:
+      - mysqldb-data:/var/lib/mysql
+
+  spring-boot-app:
+      build:
+        context: ./server/guide/
+        dockerfile: Dockerfile
+      restart: always
+      ports:
+        - "4000:4000"
+      depends_on:
+        - mysqldb
+      environment:
+        MYSQL_HOST: mysqldb
+        MYSQL_PORT: 3306
+      networks:
+        - springapimysql-net
+
+networks:
+  springapimysql-net: {}
+
+volumes:
+  mysqldb-data: {}
